@@ -14,6 +14,11 @@ module.exports = async (driver)=>{
 
         return value
     }
+    page.message = async ()=>{
+        let value = await page.text('#message')
+
+        return value
+    }
 
     return page
 }
