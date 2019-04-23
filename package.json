@@ -1,0 +1,16 @@
+{
+  "name": "yop-yaf",
+  "version": "1.0.0",
+  "description": "yet another framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha demo/*.spec.js --timeout 0 --exit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  }
+}
