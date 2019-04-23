@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 10.15.1
+env:
+  - MOZ_HEADLESS=1
+addons:
+  firefox: 65.0
+install:
+  - yarn
+before_script:
+  - export PATH=$PATH:$TRAVIS_BUILD_DIR/demo/support/webdriver/linux
+script:
+  - npm run test
