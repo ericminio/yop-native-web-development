@@ -4,7 +4,7 @@ const {
     HomePage
 } = require('./support/pages')
 
-describe('Inventing your own shared store/state/scope', function() {
+describe('Inventing a component observer mechanism', function() {
 
     var server
     var driver
