@@ -19,6 +19,11 @@ module.exports = async (driver)=>{
 
         return value
     }
+    page.content = async (selector)=>{
+        let value = await page.text(selector)
+
+        return value
+    }
 
     return page
 }
