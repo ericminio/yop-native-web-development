@@ -1,75 +1,73 @@
 const { Builder, By } = require('selenium-webdriver')
 const { expect } = require('chai')
-const {
-    HomePage
-} = require('./support/pages')
+const { HomePage } = require('./support/pages')
 
 describe('Calling it a framework', function() {
 
     var server
     var driver
 
+    var index =
+    `
+    <html>
+        <head>
+            <script src="/yaf.js"></script>
+        </head>
+        <body>
+            <div>
+                <label>Where do you live?</label>
+                <select id="countries" onchange="spread(document, '#countries')">
+                    <option id="country-with-id" value="with-value">Wonderland</option>
+                </select>
+
+                <script>
+                    connect(document, { id:'countries', data:countries, selector:'option#country-with-id', mappings:[
+                        { replace:'with-id', with:'id' },
+                        { replace:'with-value', with:'name' },
+                        { replace:'Wonderland', with:'name' },
+                    ]})
+                </script>
+            </div>
+            <div>
+                <label id="greetings">Welcome people of Wonderland</label>
+
+                <script>
+                    listen(document, '#countries', function(value) {
+                        document.getElementById('selection').innerHTML = 'You selected ' + value
+                        selection = { value:value }
+                        notify(document, { id:'selection', data:selection })
+                    })
+                </script>
+            </div>
+            <div>
+                <label id="selection"></label>
+
+                <script>
+                    connect(document, { id:'selection', data:selection, selector:'#greetings', mappings:[
+                        { replace:'Wonderland', with:'value' },
+                    ]})
+                </script>
+            </div>
+
+            <script>
+                var countries = []
+                var selection = {}
+
+                setTimeout(function(){
+                    fetch('/api/countries').then(function(response){
+                        response.json().then(function(json){
+                            countries = json.countries
+                            notify(document, { id:'countries', data:countries })
+                        })
+                    })
+                }, 100)
+            </script>
+        </body>
+    </html>
+    `
+
     beforeEach(async ()=> {
         server = require('http').createServer(function(request, response) {
-            var index =
-            `
-                <html>
-                    <head>
-                        <script src="/yaf.js"></script>
-                        <script>
-                            var countries = []
-                            var selection = {}
-                        </script>
-                    </head>
-                    <body>
-                        <div>
-                            <label>Where do you live?</label>
-                            <select id="countries" onchange="spread(document, '#countries', 'change')">
-                                <option id="country-with-id" value="with-value">Wonderland</option>
-                            </select>
-                        </div>
-
-                        <script>
-                            connectList(document, { id:'countries', data:countries, selector:'option#country-with-id', mappings:[
-                                { replace:'with-id', with:'id' },
-                                { replace:'with-value', with:'name' },
-                                { replace:'Wonderland', with:'name' },
-                            ]})
-                        </script>
-                        <script>
-                            setTimeout(function(){
-                                fetch('/api/countries').then(function(response){
-                                    response.json().then(function(json){
-                                        countries = json.countries
-                                        notify(document, { id:'countries', data:countries })
-                                    })
-                                })
-                            }, 100)
-                        </script>
-
-                        <div>
-                            <label id="greetings">Welcome people of Wonderland</label>
-                        </div>
-                        <script>
-                            connectValue(document, { id:'selection', data:selection, selector:'#greetings', mappings:[
-                                { replace:'Wonderland', with:'value' },
-                            ]})
-                        </script>
-
-                        <div>
-                            <label id="selection"></label>
-                        </div>
-                        <script>
-                            listen(document, '#countries', 'change', function(value) {
-                                document.getElementById('selection').innerHTML = 'You selected ' + value
-
-                                selection = { value:value }
-                                notifyValue(document, { id:'selection', data:selection })
-                            })
-                        </script>
-                    </body>
-                </html>
-            `
             if (request.url == '/') {
                 response.writeHead(200, { 'content-type':'text/html' })
                 response.end(index)

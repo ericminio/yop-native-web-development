@@ -5,7 +5,12 @@ var log = function(document, message) {
 var connections = []
 
 var notify = function(document, source) {
-    notifyList(document, source)
+    if (Array.isArray(source.data)) {
+        notifyList(document, source)
+    }
+    else {
+        notifyValue(document, source)
+    }
 }
 var notifyList = function(document, source) {
     for (var k=0; k < connections.length; k++) {
@@ -24,7 +29,12 @@ var notifyValue = function(document, source) {
     }
 }
 var connect = function(document, contract) {
-    connectList(document, contract)
+    if (Array.isArray(contract.data)) {
+        connectList(document, contract)
+    }
+    else {
+        connectValue(document, contract)
+    }
 }
 var connectList = function(document, contract) {
     var parent = document.querySelector(contract.selector).parentNode
@@ -74,19 +84,18 @@ var populateList = function(parent, data, template, mappings) {
 }
 
 var observers = []
-var spread = function(document, selector, event) {
+var spread = function(document, selector) {
     var element = document.querySelector(selector)
     for (var i=0; i < observers.length; i++) {
         var observer = observers[i]
-        if (observer.selector == selector && observer.event == event) {
+        if (observer.selector == selector) {
             observer.callback(element.value)
         }
     }
 }
-listen = function(document, selector, event, callback) {
+listen = function(document, selector, callback) {
     var observer = {
         selector:selector,
-        event:event,
         callback:callback
     }
     observers.push(observer)
