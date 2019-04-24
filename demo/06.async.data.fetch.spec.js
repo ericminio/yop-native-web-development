@@ -66,7 +66,6 @@ describe('Getting data asynchronously', function() {
                             ]})
                         </script>
 
-                        <label id="log"></label>
                         <script>
                             setTimeout(function(){
                                 fetch('/api/countries').then(function(response){

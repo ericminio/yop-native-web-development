@@ -20,15 +20,12 @@ describe('Inventing a component observer mechanism', function() {
                             var observers = []
                             var spread = function(document, selector, event) {
                                 var element = document.querySelector(selector)
-                                element.addEventListener(event, function(e) {
-                                    var value = e.target.value
-                                    for (var i=0; i < observers.length; i++) {
-                                        var observer = observers[i]
-                                        if (observer.selector == selector && observer.event == event) {
-                                            observer.callback(value)
-                                        }
+                                for (var i=0; i < observers.length; i++) {
+                                    var observer = observers[i]
+                                    if (observer.selector == selector && observer.event == event) {
+                                        observer.callback(element.value)
                                     }
-                                })
+                                }
                             }
                             listen = function(document, selector, event, callback) {
                                 var observer = {
