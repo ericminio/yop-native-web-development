@@ -4,7 +4,7 @@ const {
     HomePage
 } = require('./support/pages')
 
-describe('The work to magically populate a list', function() {
+describe('Changing data to magically update a list', function() {
 
     var server
     var driver
@@ -25,15 +25,34 @@ describe('The work to magically populate a list', function() {
                                 { id:5, name:'Spain' },
                             ]
 
-                            connect = function(document, source, selector, mappings) {
+                            var connections = []
+                            var notify = function(document, data) {
+                                for (var k=0; k < connections.length; k++) {
+                                    var connection = connections[k]
+                                    if (data === connection.data) {
+                                        populate(connection.parent, data, connection.template, connection.mappings)
+                                    }
+                                }
+                            }
+                            var connect = function(document, data, selector, mappings) {
                                 var parent = document.querySelector(selector).parentNode
                                 var template = document.querySelector(selector).outerHTML
+                                var connection = {
+                                    data:data,
+                                    parent:parent,
+                                    template:template,
+                                    mappings:mappings
+                                }
+                                connections.push(connection)
+                                populate(parent, data, template, mappings)
+                            }
+                            var populate = function(parent, data, template, mappings) {
                                 var children = ''
-                                for(var index=0; index<source.length; index++) {
+                                for(var index=0; index<data.length; index++) {
                                     var line = template
                                     for (var i=0; i<mappings.length; i++) {
                                         var mapping = mappings[i]
-                                        line = line.replace(mapping.replace, source[index][mapping.with])
+                                        line = line.replace(mapping.replace, data[index][mapping.with])
                                     }
                                     children += line
                                 }
@@ -42,18 +61,6 @@ describe('The work to magically populate a list', function() {
                         </script>
                     </head>
                     <body>
-                        <table>
-                            <tr class="countries-table-template">
-                                <td id="name-with-id">Wonderland</td>
-                            </tr>
-                        </table>
-                        <script>
-                            connect(document, countries, '.countries-table-template', [
-                                { replace:'with-id', with:'id' },
-                                { replace:'Wonderland', with:'name' }
-                            ])
-                        </script>
-
                         <ul>
                             <li id="country-with-id" class="countries-list-template">Wonderland</li>
                         </ul>
@@ -62,6 +69,14 @@ describe('The work to magically populate a list', function() {
                                 { replace:'with-id', with:'id' },
                                 { replace:'Wonderland', with:'name' }
                             ])
+                        </script>
+
+                        <button id="modify" onclick="modify()">modify</button>
+                        <script>
+                            var modify = function() {
+                                countries[3].name = 'United States'
+                                notify(document, countries)
+                            }
                         </script>
                     </body>
                 </html>
@@ -78,12 +93,11 @@ describe('The work to magically populate a list', function() {
         await driver.quit()
     })
 
-    it('is not so difficult', async ()=> {
+    it('requires a little more plumbing', async ()=> {
         page = await HomePage(driver)
+        expect(await page.text('body')).to.contain('USA')
 
-        expect(await page.text('#name-1')).to.equal('France')
-        expect(await page.text('#name-5')).to.equal('Spain')
-
-        expect(await page.text('#country-4')).to.equal('USA')
+        page.click('#modify')
+        expect(await page.text('body')).to.contain('United States')
     })
 })

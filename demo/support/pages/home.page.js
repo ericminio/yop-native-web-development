@@ -6,24 +6,5 @@ module.exports = async (driver)=>{
     await page.open(base)
     await page.wait(1000)
 
-    page.name = async (value)=>{
-        await page.input('#name', value)
-    }
-    page.greetings = async ()=>{
-        let value = await page.text('#greetings')
-
-        return value
-    }
-    page.message = async ()=>{
-        let value = await page.text('#message')
-
-        return value
-    }
-    page.content = async (selector)=>{
-        let value = await page.text(selector)
-
-        return value
-    }
-
     return page
 }

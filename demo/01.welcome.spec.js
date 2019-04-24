@@ -1,7 +1,7 @@
 const { Builder, By } = require('selenium-webdriver')
 const { expect } = require('chai')
 
-describe('Selenium', function() {
+describe('Web development show time', function() {
 
     var server
     var driver
@@ -29,7 +29,7 @@ describe('Selenium', function() {
         await driver.quit()
     })
 
-    it('is ready', async ()=> {
+    it('is now', async ()=> {
         await driver.get('http://localhost:5000')
         let element = await driver.findElement(By.id('greetings'))
         let value = await element.getText()

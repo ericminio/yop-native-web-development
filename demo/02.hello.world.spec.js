@@ -43,8 +43,8 @@ describe('Moving data between elements', function() {
 
     it('is built-in', async ()=> {
         page = await HomePage(driver)
-        page.name('World')
+        page.input('#name', 'World')
 
-        expect(await page.greetings()).to.equal('Hello World')
+        expect(await page.text('#greetings')).to.equal('Hello World')
     })
 })

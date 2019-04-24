@@ -22,11 +22,12 @@ describe('Inventing a component observer mechanism', function() {
                                 var element = document.querySelector(selector)
                                 element.addEventListener(event, function(e) {
                                     var value = e.target.value
-                                    observers.forEach(function (observer){
+                                    for (var i=0; i < observers.length; i++) {
+                                        var observer = observers[i]
                                         if (observer.selector == selector && observer.event == event) {
                                             observer.callback(value)
                                         }
-                                    })
+                                    }
                                 })
                             }
                             listen = function(document, selector, event, callback) {
@@ -40,10 +41,7 @@ describe('Inventing a component observer mechanism', function() {
                         </script>
                     </head>
                     <body>
-                        <input id="name" />
-                        <script>
-                            spread(document, '#name', 'input')
-                        </script>
+                        <input id="name" oninput="spread(document, '#name', 'input')" />
 
                         <div id="greetings">welcome</div>
                         <script>
@@ -75,10 +73,9 @@ describe('Inventing a component observer mechanism', function() {
 
     it('is up to you', async ()=> {
         page = await HomePage(driver)
-        page.name('World')
-        await page.wait(500)
+        page.input('#name', 'World')
 
-        expect(await page.greetings()).to.equal('Hello World')
-        expect(await page.message()).to.equal('Welcome World')
+        expect(await page.text('#greetings')).to.equal('Hello World')
+        expect(await page.text('#message')).to.equal('Welcome World')
     })
 })
