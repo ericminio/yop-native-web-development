@@ -4,7 +4,9 @@ var Page = function(driver, options) {
     this.driver = driver
     this.elements = [
         'yop-country-selection',
-        'yop-greetings'
+        'yop-greetings',
+        'yop-menu',
+        'yop-route'
     ]
 }
 Page.prototype.open = async function(url) {
@@ -46,6 +48,33 @@ Page.prototype.findElement = async function(selector) {
                 if (element !== null) { return element }
             }
         }
+
+        let children = []
+        for (let i=0; i<this.elements.length; i++) {
+            let name = this.elements[i]
+            let doms = await this.driver.findElements(By.css(name))
+            for (let k=0; k<doms.length; k++) {
+                let dom = doms[k]
+                children.push(dom)
+            }
+        }
+        for (let i=0; i<children.length; i++) {
+            let child = children[i]
+            let level2 = []
+            for (let i=0; i<this.elements.length; i++) {
+                let name = this.elements[i]
+                let script = 'return arguments[0].shadowRoot.querySelector("' + name + '")'
+                let dom = await this.driver.executeScript(script, child)
+                if (dom !== null) {
+                    let search = 'return arguments[0].shadowRoot.querySelector("' + selector + '")'
+                    let element = await this.driver.executeScript(search, dom)
+
+                    if (element !== null) { return element }
+                }
+            }
+        }
+
+
         throw new Error('Unable to locate element: ' + selector)
     }
 }

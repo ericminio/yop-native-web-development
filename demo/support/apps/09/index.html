@@ -3,9 +3,9 @@
         <script src="/all.js"></script>
     </head>
     <body>
-        <yop-country-selection save-selection-as="country.selection"></yop-country-selection>
+        <yop-menu></yop-menu>
 
-        <yop-greetings id="welcome" listen-to="country.selection" prefix="Welcome people of "></yop-greetings>
-        <yop-greetings id="insight" listen-to="country.selection" prefix="Tell me more about "></yop-greetings>
+        <yop-route when="/" then="yop-home"></yop-route>
+        <yop-route when="/countries" then="yop-country-selection"></yop-route>
     </body>
 </html>

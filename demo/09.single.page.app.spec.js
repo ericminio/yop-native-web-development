@@ -3,7 +3,7 @@ const { expect } = require('chai')
 const { HomePage } = require('./support/pages')
 var { server, port } = require('./support/apps/09/server')
 
-describe('Single-page app', function() {
+describe.only('Single-page app', function() {
 
     var driver
 
@@ -18,6 +18,8 @@ describe('Single-page app', function() {
 
     it('usually requires a routing mechanism', async ()=> {
         page = await HomePage(driver, port)
+        // await page.wait(5 * 60 * 1000)
+        await page.click('#menu-countries')
         await page.click('#country-3')
 
         expect(await page.text('#welcome-message')).to.equal('Welcome people of Venezuela')

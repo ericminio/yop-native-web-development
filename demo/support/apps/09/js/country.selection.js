@@ -1,7 +1,5 @@
 class CountrySelection extends HTMLElement {
-    static get observedAttributes() {
-        return ['save-selection-as'];
-    }
+
     constructor() {
         super();
         var shadow = this.attachShadow({
@@ -11,9 +9,13 @@ class CountrySelection extends HTMLElement {
         shadow.appendChild(tree);
 
         tree.innerHTML = `
+            <label>Where are you from?</label>
             <select id="countries">
                 <option id="country-with-id" value="with-value">Wonderland</option>
             </select>
+
+            <yop-greetings id="welcome" listen-to="country.selection" prefix="Welcome people of "></yop-greetings>
+            <yop-greetings id="insight" listen-to="country.selection" prefix="Tell me more about "></yop-greetings>
         `
         this.list = tree.querySelector('select#countries')
         this.template = tree.querySelector('option#country-with-id').outerHTML
@@ -23,12 +25,9 @@ class CountrySelection extends HTMLElement {
             { replace: 'Wonderland', with: 'name' },
         ]
     }
-    attributeChangedCallback(name, oldValue, newValue) {
-        this.target = newValue
-    }
     connectedCallback() {
         this.list.addEventListener('change', ()=>{
-            store.notify(this.target, this.list.value)
+            store.notify('country.selection', this.list.value)
         })
         api.getCountries().then((countries)=>{
             this.update(countries)
