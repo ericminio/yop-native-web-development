@@ -72,13 +72,13 @@ class CountrySelection extends HTMLElement {
             this.update(countries)
         })
     }
-    update(data) {
+    update(countries) {
         var children = ''
-        for (var index = 0; index < data.length; index++) {
+        for (var index = 0; index < countries.length; index++) {
             var line = this.template
             for (var i = 0; i < this.mappings.length; i++) {
                 var mapping = this.mappings[i]
-                line = line.replace(mapping.replace, data[index][mapping.with])
+                line = line.replace(mapping.replace, countries[index][mapping.with])
             }
             children += line
         }

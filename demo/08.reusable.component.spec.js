@@ -35,7 +35,7 @@ describe('Creating scoped/isolated components', function() {
             }
             if (request.url == '/apps/08.js') {
                 response.writeHead(200, { 'content-type':'application/javascript' })
-                response.end(require('fs').readFileSync('demo/support/apps/08.js').toString())
+                response.end(require('fs').readFileSync('demo/support/apps/08/08.js').toString())
             }
             if (request.url == '/api/countries') {
                 response.writeHead(200, { 'content-type':'application/json' })
