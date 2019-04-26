@@ -15,10 +15,10 @@ describe('Creating scoped/isolated components', function() {
             <script src="/apps/08.js"></script>
         </head>
         <body>
-            <yop-country-selection target="selection"></yop-country-selection>
+            <yop-country-selection save-selection-as="country.selection"></yop-country-selection>
 
-            <yop-greetings id="welcome" prefix="Welcome people of " data="selection"></yop-greetings>
-            <yop-greetings id="insight" prefix="Tell me more about " data="selection"></yop-greetings>
+            <yop-greetings id="welcome" listen-to="country.selection" prefix="Welcome people of "></yop-greetings>
+            <yop-greetings id="insight" listen-to="country.selection" prefix="Tell me more about "></yop-greetings>
         </body>
     </html>
     `
@@ -61,7 +61,7 @@ describe('Creating scoped/isolated components', function() {
 
     it('is built-in with shadow DOM and custom HTML elements', async ()=> {
         page = await HomePage(driver)
-        // await page.wait(3 * 60 * 1000)
+        // await page.wait(30 * 60 * 1000)
 
         let root = await driver.findElement(By.css('yop-country-selection'))
         let element = await driver.executeScript('return arguments[0].shadowRoot.querySelector("#country-2")', root)

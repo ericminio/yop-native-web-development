@@ -21,10 +21,24 @@ class Store {
 }
 var store = new Store()
 
+class Api {
+    getCountries() {
+        var p = new Promise((resolve, reject)=>{
+            fetch('/api/countries').then((response) => {
+                response.json().then((json) => {
+                    resolve(json.countries)
+                })
+            })
+        })
+        return p
+    }
+}
+var api = new Api()
+
 
 class CountrySelection extends HTMLElement {
     static get observedAttributes() {
-        return ['target'];
+        return ['save-selection-as'];
     }
     constructor() {
         super();
@@ -41,44 +55,30 @@ class CountrySelection extends HTMLElement {
         `
         this.list = tree.querySelector('select#countries')
         this.template = tree.querySelector('option#country-with-id').outerHTML
-        this.data = []
-        this.mappings = [{
-                replace: 'with-id',
-                with: 'id'
-            },
-            {
-                replace: 'with-value',
-                with: 'name'
-            },
-            {
-                replace: 'Wonderland',
-                with: 'name'
-            },
+        this.mappings = [
+            { replace: 'with-id', with: 'id' },
+            { replace: 'with-value', with: 'name' },
+            { replace: 'Wonderland', with: 'name' },
         ]
     }
-
     attributeChangedCallback(name, oldValue, newValue) {
         this.target = newValue
     }
-
     connectedCallback() {
         this.list.addEventListener('change', ()=>{
             store.notify(this.target, this.list.value)
         })
-        fetch('/api/countries').then((response) => {
-            response.json().then((json) => {
-                this.data = json.countries
-                this.update()
-            })
+        api.getCountries().then((countries)=>{
+            this.update(countries)
         })
     }
-    update() {
+    update(data) {
         var children = ''
-        for (var index = 0; index < this.data.length; index++) {
+        for (var index = 0; index < data.length; index++) {
             var line = this.template
             for (var i = 0; i < this.mappings.length; i++) {
                 var mapping = this.mappings[i]
-                line = line.replace(mapping.replace, this.data[index][mapping.with])
+                line = line.replace(mapping.replace, data[index][mapping.with])
             }
             children += line
         }
@@ -90,7 +90,7 @@ customElements.define('yop-country-selection', CountrySelection);
 class Greetings extends HTMLElement {
 
     static get observedAttributes() {
-        return ['id', 'prefix', 'data'];
+        return ['id', 'listen-to', 'prefix'];
     }
     constructor() {
         super();
@@ -106,7 +106,7 @@ class Greetings extends HTMLElement {
         this.label = tree.querySelector('label')
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name == 'data') { store.register(this, newValue) }
+        if (name == 'listen-to') { store.register(this, newValue) }
         if (name == 'id') { this.label.id = newValue + '-message' }
         if (name == 'prefix' && oldValue !== newValue) { this.setAttribute('prefix', newValue) }
     }
