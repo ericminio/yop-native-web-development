@@ -3,7 +3,7 @@ const { expect } = require('chai')
 const { HomePage } = require('./support/pages')
 var { server, port } = require('./support/apps/09/server')
 
-describe.only('Single-page app', function() {
+describe('Single-page app', function() {
 
     var driver
 
