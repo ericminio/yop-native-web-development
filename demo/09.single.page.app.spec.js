@@ -17,7 +17,7 @@ describe('Single-page app', function() {
     })
 
     it('usually requires a routing mechanism', async ()=> {
-        page = await HomePage(driver)
+        page = await HomePage(driver, port)
         await page.click('#country-3')
 
         expect(await page.text('#welcome-message')).to.equal('Welcome people of Venezuela')
