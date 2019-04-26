@@ -18,7 +18,6 @@ describe('Single-page app', function() {
 
     it('usually requires a routing mechanism', async ()=> {
         page = await HomePage(driver, port)
-        // await page.wait(5 * 60 * 1000)
         await page.click('#menu-countries')
         await page.click('#country-3')
 
