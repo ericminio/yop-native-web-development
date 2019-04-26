@@ -9,7 +9,12 @@ let server = require('http').createServer(function(request, response) {
     if (request.url == '/all.js') {
         response.writeHead(200, { 'content-type':'application/javascript' })
         let js = ''
-        let files = fs.readdirSync(path.join(__dirname, 'js'))
+        let files = fs.readdirSync(path.join(__dirname, 'js', 'yaf'))
+        for (var i=0; i<files.length; i++) {
+            js += fs.readFileSync(path.join(__dirname, 'js', 'yaf', files[i]))
+        }
+        files = fs.readdirSync(path.join(__dirname, 'js'))
+                    .filter((file)=> file.endsWith('.js'))
         for (var i=0; i<files.length; i++) {
             js += fs.readFileSync(path.join(__dirname, 'js', files[i]))
         }
