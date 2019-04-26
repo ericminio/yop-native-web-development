@@ -61,22 +61,9 @@ describe('Creating scoped/isolated components', function() {
 
     it('is built-in with shadow DOM and custom HTML elements', async ()=> {
         page = await HomePage(driver)
-        // await page.wait(30 * 60 * 1000)
+        await page.click('#country-2')
 
-        let root = await driver.findElement(By.css('yop-country-selection'))
-        let element = await driver.executeScript('return arguments[0].shadowRoot.querySelector("#country-2")', root)
-        await element.click()
-
-        root = await driver.findElement(By.css('yop-greetings#welcome'))
-        element = await driver.executeScript('return arguments[0].shadowRoot.querySelector("#welcome-message")', root)
-        let message = await element.getText()
-
-        expect(message).to.equal('Welcome people of Canada')
-
-        root = await driver.findElement(By.css('yop-greetings#insight'))
-        element = await driver.executeScript('return arguments[0].shadowRoot.querySelector("#insight-message")', root)
-        message = await element.getText()
-
-        expect(message).to.equal('Tell me more about Canada')
+        expect(await page.text('#welcome-message')).to.equal('Welcome people of Canada')
+        expect(await page.text('#insight-message')).to.equal('Tell me more about Canada')
     })
 })
