@@ -1,14 +1,9 @@
-class CountrySelection extends HTMLElement {
+class CountrySelection extends YafElement {
 
     constructor() {
-        super();
-        var shadow = this.attachShadow({
-            mode: 'open'
-        });
-        var tree = document.createElement('div');
-        shadow.appendChild(tree);
+        super()
 
-        tree.innerHTML = `
+        this.tree.innerHTML = `
             <label>Where are you from?</label>
             <select id="countries">
                 <option id="country-with-id" value="with-value">Wonderland</option>
@@ -17,8 +12,8 @@ class CountrySelection extends HTMLElement {
             <yop-greetings id="welcome" listen-to="country.selection" prefix="Welcome people of "></yop-greetings>
             <yop-greetings id="insight" listen-to="country.selection" prefix="Tell me more about "></yop-greetings>
         `
-        this.list = tree.querySelector('select#countries')
-        this.template = tree.querySelector('option#country-with-id').outerHTML
+        this.list = this.tree.querySelector('select#countries')
+        this.template = this.tree.querySelector('option#country-with-id').outerHTML
         this.mappings = [
             { replace: 'with-id', with: 'id' },
             { replace: 'with-value', with: 'name' },

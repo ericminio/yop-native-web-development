@@ -1,20 +1,14 @@
-class Greetings extends HTMLElement {
+class Greetings extends YafElement {
 
     static get observedAttributes() {
         return ['id', 'listen-to', 'prefix'];
     }
     constructor() {
-        super();
-        var shadow = this.attachShadow({
-            mode: 'open'
-        });
-        var tree = document.createElement('div');
-        shadow.appendChild(tree);
-
-        tree.innerHTML = `
+        super()
+        this.tree.innerHTML = `
             <label></label>
         `
-        this.label = tree.querySelector('label')
+        this.label = this.tree.querySelector('label')
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if (name == 'listen-to') { store.register(this, newValue) }

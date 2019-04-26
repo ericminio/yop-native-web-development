@@ -1,14 +1,8 @@
-class Home extends HTMLElement {
+class Home extends YafElement {
 
     constructor() {
-        super();
-        var shadow = this.attachShadow({
-            mode: 'open'
-        });
-        var tree = document.createElement('div');
-        shadow.appendChild(tree);
-
-        tree.innerHTML = `
+        super()
+        this.tree.innerHTML = `
             <label>Home</label>
         `
     }

@@ -1,22 +1,16 @@
-class Menu extends HTMLElement {
+class Menu extends YafElement {
 
     constructor() {
-        super();
-        var shadow = this.attachShadow({
-            mode: 'open'
-        });
-        var tree = document.createElement('div');
-        shadow.appendChild(tree);
-
-        tree.innerHTML = `
+        super()
+        this.tree.innerHTML = `
             <label>Welcome</label>
             <ul>
                 <li class="menu" id="menu-home">Home</li>
                 <li class="menu" id="menu-countries">Countries</li>
             </ul>
         `
-        this.home = tree.querySelector('#menu-home')
-        this.countries = tree.querySelector('#menu-countries')
+        this.home = this.tree.querySelector('#menu-home')
+        this.countries = this.tree.querySelector('#menu-countries')
     }
     connectedCallback() {
         this.home.addEventListener('click', ()=>{
