@@ -2,10 +2,6 @@ const fs = require('fs')
 const path = require('path')
 
 let server = require('http').createServer(function(request, response) {
-    if (request.url == '/') {
-        response.writeHead(200, { 'content-type':'text/html' })
-        response.end(require('fs').readFileSync('demo/support/apps/09/index.html').toString())
-    }
     if (request.url == '/all.js') {
         response.writeHead(200, { 'content-type':'application/javascript' })
         let js = ''
@@ -20,7 +16,7 @@ let server = require('http').createServer(function(request, response) {
         }
         response.end(js)
     }
-    if (request.url == '/api/countries') {
+    else if (request.url == '/api/countries') {
         response.writeHead(200, { 'content-type':'application/json' })
         response.end(JSON.stringify({
             countries: [
@@ -31,6 +27,10 @@ let server = require('http').createServer(function(request, response) {
                 { id:5, name:'Spain' }
             ]
         }))
+    }
+    else {
+        response.writeHead(200, { 'content-type':'text/html' })
+        response.end(require('fs').readFileSync('demo/support/apps/09/index.html').toString())
     }
 })
 let port = 5005
