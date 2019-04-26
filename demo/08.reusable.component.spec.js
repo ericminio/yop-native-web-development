@@ -11,7 +11,6 @@ describe('Creating scoped/isolated components', function() {
     `
     <html>
         <head>
-            <script src="/yaf.js"></script>
             <script src="/apps/08.js"></script>
         </head>
         <body>
