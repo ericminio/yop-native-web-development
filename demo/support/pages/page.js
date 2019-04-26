@@ -58,22 +58,41 @@ Page.prototype.findElement = async function(selector) {
                 children.push(dom)
             }
         }
+        console.log(children.length, 'nested to search for', selector);
+        var inspect = async (current)=> {
+            console.log('inspect', await current.node.getTagName(), await current.node.getText());
+            let search = 'return arguments[0].shadowRoot.querySelector("' + selector + '")'
+            let element = await this.driver.executeScript(search, current.node)
+            if (element !== null && element !== undefined) { return element }
+
+            var children = []
+            for (let k=0; k<this.elements.length; k++) {
+                let name = this.elements[k]
+                let script = 'return arguments[0].shadowRoot.querySelectorAll("' + name + '")'
+                let doms = await this.driver.executeScript(script, current.node)
+                children = children.concat(doms)
+            }
+            for (let i=0; i<children.length; i++) {
+                let child = children[i]
+                let element = await inspect({ node:child })
+                if (element !== null && element !== undefined) { return element }
+            }
+
+        }
         for (let i=0; i<children.length; i++) {
             let child = children[i]
-            let level2 = []
-            for (let i=0; i<this.elements.length; i++) {
-                let name = this.elements[i]
-                let script = 'return arguments[0].shadowRoot.querySelector("' + name + '")'
-                let dom = await this.driver.executeScript(script, child)
-                if (dom !== null) {
-                    let search = 'return arguments[0].shadowRoot.querySelector("' + selector + '")'
-                    let element = await this.driver.executeScript(search, dom)
-
-                    if (element !== null) { return element }
+            console.log('inspect', await child.getTagName(), await child.getText());
+            for (let k=0; k<this.elements.length; k++) {
+                let name = this.elements[k]
+                let script = 'return arguments[0].shadowRoot.querySelectorAll("' + name + '")'
+                let doms = await this.driver.executeScript(script, child)
+                if (doms.length > 0) {
+                    console.log('doms', doms, name);
+                    let element = await inspect({ node:child })
+                    if (element !== null && element !== undefined) { return element }
                 }
             }
         }
-
 
         throw new Error('Unable to locate element: ' + selector)
     }
