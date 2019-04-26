@@ -1,12 +1,22 @@
 class Store {
     constructor() {
-        this.listeners = []
+        this.listeners = {}
     }
     notify(id, value) {
-        this.component.update(value)
+        var listeners = this.listeners[id]
+        if (listeners !== undefined) {
+            for (var i=0; i<listeners.length; i++) {
+                var component = listeners[i]
+                component.update(value)
+            }
+        }
     }
     register(component, id) {
-        this.component = component
+        var listeners = this.listeners[id]
+        if (listeners === undefined) {
+            this.listeners[id] = []
+        }
+        this.listeners[id].push(component)
     }
 }
 var store = new Store()
@@ -15,9 +25,6 @@ var store = new Store()
 class CountrySelection extends HTMLElement {
     static get observedAttributes() {
         return ['target'];
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        this.target = newValue
     }
     constructor() {
         super();
@@ -50,6 +57,10 @@ class CountrySelection extends HTMLElement {
         ]
     }
 
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.target = newValue
+    }
+
     connectedCallback() {
         this.list.addEventListener('change', ()=>{
             store.notify(this.target, this.list.value)
@@ -74,15 +85,12 @@ class CountrySelection extends HTMLElement {
         this.list.innerHTML = children
     }
 }
-
 customElements.define('yop-country-selection', CountrySelection);
 
 class Greetings extends HTMLElement {
+
     static get observedAttributes() {
-        return ['data'];
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        store.register(this, newValue)
+        return ['id', 'prefix', 'data'];
     }
     constructor() {
         super();
@@ -93,13 +101,17 @@ class Greetings extends HTMLElement {
         shadow.appendChild(tree);
 
         tree.innerHTML = `
-            <label id="message">Welcome</label>
+            <label></label>
         `
-        this.label = tree.querySelector('#message')
+        this.label = tree.querySelector('label')
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name == 'data') { store.register(this, newValue) }
+        if (name == 'id') { this.label.id = newValue + '-message' }
+        if (name == 'prefix' && oldValue !== newValue) { this.setAttribute('prefix', newValue) }
     }
     update(value) {
-        this.label.textContent = 'Welcome people of ' + value
+        this.label.textContent = this.getAttribute('prefix') + value
     }
 }
-
 customElements.define('yop-greetings', Greetings);
