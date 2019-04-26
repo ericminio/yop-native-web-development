@@ -1,17 +1,25 @@
+const countrySelectionTemplate = document.createElement('template')
+
+countrySelectionTemplate.innerHTML = `
+    <style>
+        @import '/all.css'
+    </style>
+
+    <label>Where are you from?</label>
+    <select id="countries">
+        <option id="country-with-id" value="with-value">Wonderland</option>
+    </select>
+
+    <yop-greetings id="welcome" listen-to="country.selection" prefix="Welcome people of "></yop-greetings>
+    <yop-greetings id="insight" listen-to="country.selection" prefix="Tell me more about "></yop-greetings>
+`
+
 class CountrySelection extends YafElement {
 
     constructor() {
         super()
 
-        this.tree.innerHTML = `
-            <label>Where are you from?</label>
-            <select id="countries">
-                <option id="country-with-id" value="with-value">Wonderland</option>
-            </select>
-
-            <yop-greetings id="welcome" listen-to="country.selection" prefix="Welcome people of "></yop-greetings>
-            <yop-greetings id="insight" listen-to="country.selection" prefix="Tell me more about "></yop-greetings>
-        `
+        this.tree.appendChild(countrySelectionTemplate.content.cloneNode(true))
         this.list = this.tree.querySelector('select#countries')
         this.template = this.tree.querySelector('option#country-with-id').outerHTML
         this.mappings = [

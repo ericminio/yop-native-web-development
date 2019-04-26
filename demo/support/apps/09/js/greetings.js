@@ -1,3 +1,13 @@
+const greetingsTemplate = document.createElement('template')
+
+greetingsTemplate.innerHTML = `
+    <style>
+        @import '/all.css'
+    </style>
+
+    <label></label>
+`
+
 class Greetings extends YafElement {
 
     static get observedAttributes() {
@@ -5,9 +15,7 @@ class Greetings extends YafElement {
     }
     constructor() {
         super()
-        this.tree.innerHTML = `
-            <label></label>
-        `
+        this.tree.appendChild(greetingsTemplate.content.cloneNode(true))
         this.label = this.tree.querySelector('label')
     }
     attributeChangedCallback(name, oldValue, newValue) {

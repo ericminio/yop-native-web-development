@@ -1,14 +1,22 @@
+const menuTemplate = document.createElement('template')
+
+menuTemplate.innerHTML = `
+    <style>
+        @import '/all.css'
+    </style>
+
+    <h1 class="title">Welcome</h1>
+    <ul>
+        <li class="menu" id="menu-home">Home</li>
+        <li class="menu" id="menu-countries">Countries</li>
+    </ul>
+`
+
 class Menu extends YafElement {
 
     constructor() {
         super()
-        this.tree.innerHTML = `
-            <label>Welcome</label>
-            <ul>
-                <li class="menu" id="menu-home">Home</li>
-                <li class="menu" id="menu-countries">Countries</li>
-            </ul>
-        `
+        this.tree.appendChild(menuTemplate.content.cloneNode(true))
         this.home = this.tree.querySelector('#menu-home')
         this.countries = this.tree.querySelector('#menu-countries')
     }

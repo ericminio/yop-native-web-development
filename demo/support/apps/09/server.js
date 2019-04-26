@@ -28,6 +28,10 @@ let server = require('http').createServer(function(request, response) {
             ]
         }))
     }
+    else if (request.url == '/all.css') {
+        response.writeHead(200, { 'content-type':'text/css' })
+        response.end(require('fs').readFileSync('demo/support/apps/09/css/all.css').toString())
+    }
     else {
         response.writeHead(200, { 'content-type':'text/html' })
         response.end(require('fs').readFileSync('demo/support/apps/09/index.html').toString())
