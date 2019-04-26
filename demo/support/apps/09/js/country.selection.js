@@ -2,7 +2,6 @@ const countrySelectionTemplate = document.createElement('template')
 
 countrySelectionTemplate.innerHTML = `
     <style>
-        @import '/all.css'
     </style>
 
     <label>Where are you from?</label>

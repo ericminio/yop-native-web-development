@@ -2,10 +2,12 @@ const greetingsTemplate = document.createElement('template')
 
 greetingsTemplate.innerHTML = `
     <style>
-        @import '/all.css'
+        .greetings {
+            font-style: italic;
+        }
     </style>
 
-    <label></label>
+    <label class="greetings"></label>
 `
 
 class Greetings extends YafElement {

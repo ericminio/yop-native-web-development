@@ -2,7 +2,12 @@ const menuTemplate = document.createElement('template')
 
 menuTemplate.innerHTML = `
     <style>
-        @import '/all.css'
+        .title {
+            color:red
+        }
+        .menu {
+            color:blue
+        }
     </style>
 
     <h1 class="title">Welcome</h1>

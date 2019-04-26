@@ -2,7 +2,9 @@ const homeTemplate = document.createElement('template')
 
 homeTemplate.innerHTML = `
     <style>
-        @import '/all.css'
+        .page {
+            color:darkgreen
+        }
     </style>
 
     <h2 class="page">Home</h2>
