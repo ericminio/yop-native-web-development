@@ -1,4 +1,4 @@
-class Store {
+class Events {
     constructor() {
         this.listeners = {}
     }
@@ -19,4 +19,4 @@ class Store {
         this.listeners[id].push(component)
     }
 }
-var store = new Store()
+var events = new Events()

@@ -5,10 +5,10 @@ class Loader extends YafElement {
     }
     connectedCallback() {
         api.getGoodNews().then((news)=>{
-            store.notify('good.news', news)
+            events.notify('good.news', news)
         })
         api.getBadNews().then((news)=>{
-            store.notify('bad.news', news)
+            events.notify('bad.news', news)
         })
     }
 }

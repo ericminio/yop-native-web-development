@@ -12,7 +12,7 @@ displayTemplate.innerHTML = `
         <tbody>
             <tr id="news-with-id">
                 <td id="news-with-id-title">always good</td>
-            </tr>            
+            </tr>
         </tbody>
     </table>
 `
@@ -38,7 +38,7 @@ class Display extends YafElement {
         if (name == 'id-prefix' && oldValue !== newValue) { this.setAttribute('id-prefix', newValue) }
     }
     connectedCallback() {
-        store.register(this, this.getAttribute('news'))
+        events.register(this, this.getAttribute('news'))
     }
     update(news) {
         var children = ''
