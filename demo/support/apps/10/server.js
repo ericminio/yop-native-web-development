@@ -40,7 +40,7 @@ let server = require('http').createServer(function(request, response) {
         response.end(require('fs').readFileSync('demo/support/apps/10/index.html').toString())
     }
 })
-let port = 5005
+let port = 5010
 server.listen(port)
 
 module.exports = {

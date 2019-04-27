@@ -5,6 +5,7 @@ displayTemplate.innerHTML = `
 
     </style>
 
+    <label id="news-title"></label>
     <table>
         <thead>
             <th>Title</th>
@@ -23,11 +24,12 @@ displayTemplate.innerHTML = `
 class Display extends YafElement {
 
     static get observedAttributes() {
-        return ['news', 'id-prefix', 'when-empty'];
+        return ['title', 'news', 'id-prefix', 'when-empty'];
     }
     constructor() {
         super()
         this.tree.appendChild(displayTemplate.content.cloneNode(true))
+        this.newsTitle = this.tree.querySelector('label')
         this.list = this.tree.querySelector('tbody')
         this.templateNode = this.tree.querySelector('tr#news-with-id')
         this.template = this.templateNode.outerHTML
@@ -37,12 +39,15 @@ class Display extends YafElement {
         ]
     }
     attributeChangedCallback(name, oldValue, newValue) {
+        if (name == 'title' && oldValue !== newValue) { this.setAttribute('title', newValue) }
         if (name == 'news' && oldValue !== newValue) { this.setAttribute('news', newValue) }
         if (name == 'when-empty' && oldValue !== newValue) { this.setAttribute('when-empty', newValue) }
         if (name == 'id-prefix' && oldValue !== newValue) { this.setAttribute('id-prefix', newValue) }
     }
     connectedCallback() {
         events.register(this, this.getAttribute('news'))
+        this.newsTitle.id = this.newsTitle.id.split('news').join(this.getAttribute('id-prefix'))
+        this.newsTitle.textContent = this.getAttribute('title')
     }
     update(news) {
         if (news.length == 0) {
