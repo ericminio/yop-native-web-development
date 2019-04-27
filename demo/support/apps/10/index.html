@@ -6,7 +6,7 @@
     <body>
         <yop-load-news></yop-load-news>
 
-        <yop-display news="good.news" title="Good news" ></yop-display>
-        <yop-display news="bad.news" title="So-so news"></yop-display>        
+        <yop-display news="good.news" title="Good news" id-prefix="good-news" when-empty="No good news to report"></yop-display>
+        <yop-display news="bad.news" title="So-so news" id-prefix="bad-news" when-empty="No bad news to report"></yop-display>
     </body>
 </html>

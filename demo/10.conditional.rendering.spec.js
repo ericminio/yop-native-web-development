@@ -22,6 +22,6 @@ describe('Conditional rendering', function() {
         expect(await page.text('#good-news-1-title')).to.equal('Gaining power')
         expect(await page.text('#good-news-2-title')).to.equal('Starting its adventure')
 
-        expect(await page.text('#bad-news-empty-message')).to.equal('No bad news to report')
+        expect(await page.text('#bad-news-empty-message')).to.equal('Nothing to report')
     })
 })
