@@ -16,12 +16,12 @@ describe('Conditional rendering', function() {
         await driver.quit()
     })
 
-    it('usually requires a routing mechanism', async ()=> {
+    it('can be done manually', async ()=> {
         page = await HomePage(driver, port)
 
         expect(await page.text('#good-news-1-title')).to.equal('Gaining power')
         expect(await page.text('#good-news-2-title')).to.equal('Starting its adventure')
 
-        expect(await page.text('#bad-news-empty-message')).to.equal('Nothing to report')
+        expect(await page.text('#bad-news-empty-message')).to.equal('No bad news, good news')
     })
 })

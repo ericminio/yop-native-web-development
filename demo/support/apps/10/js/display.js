@@ -13,6 +13,9 @@ displayTemplate.innerHTML = `
             <tr id="news-with-id">
                 <td id="news-with-id-title">always good</td>
             </tr>
+            <tr>
+                <td id="news-empty-message">No news, good news</td>
+            </tr>
         </tbody>
     </table>
 `
@@ -26,7 +29,8 @@ class Display extends YafElement {
         super()
         this.tree.appendChild(displayTemplate.content.cloneNode(true))
         this.list = this.tree.querySelector('tbody')
-        this.template = this.tree.querySelector('tr#news-with-id').outerHTML
+        this.templateNode = this.tree.querySelector('tr#news-with-id')
+        this.template = this.templateNode.outerHTML
         this.mappings = [
             { replace: 'with-id', with: 'id' },
             { replace: 'always good', with: 'title' },
@@ -41,16 +45,24 @@ class Display extends YafElement {
         events.register(this, this.getAttribute('news'))
     }
     update(news) {
-        var children = ''
-        for (var index = 0; index < news.length; index++) {
-            var line = this.template.split('news').join(this.getAttribute('id-prefix'))
-            for (var i = 0; i < this.mappings.length; i++) {
-                var mapping = this.mappings[i]
-                line = line.split(mapping.replace).join(news[index][mapping.with])
-            }
-            children += line
+        if (news.length == 0) {
+            this.list.removeChild(this.templateNode)
+            let empty = this.tree.querySelector('#news-empty-message')
+            empty.id = empty.id.split('news').join(this.getAttribute('id-prefix'))
+            empty.textContent = this.getAttribute('when-empty')
         }
-        this.list.innerHTML = children
+        else {
+            var children = ''
+            for (var index = 0; index < news.length; index++) {
+                var line = this.template.split('news').join(this.getAttribute('id-prefix'))
+                for (var i = 0; i < this.mappings.length; i++) {
+                    var mapping = this.mappings[i]
+                    line = line.split(mapping.replace).join(news[index][mapping.with])
+                }
+                children += line
+            }
+            this.list.innerHTML = children
+        }
     }
 }
 customElements.define('yop-display', Display)
