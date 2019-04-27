@@ -4,7 +4,8 @@
   "description": "yet another framework",
   "main": "index.js",
   "scripts": {
-    "test": "mocha demo/*.spec.js --timeout 0 --exit"
+    "test": "mocha demo/*.spec.js --timeout 0 --exit",
+    "slide": "mocha demo/$SLIDE.*.spec.js --timeout 0 --exit"
   },
   "author": "",
   "license": "ISC",
