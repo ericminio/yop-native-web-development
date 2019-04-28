@@ -5,7 +5,7 @@ class YafElement extends HTMLElement {
         this.shadow = this.attachShadow({
             mode: 'open'
         });
-        this.tree = document.createElement('div');
+        this.tree = document.createElement('div');        
         this.shadow.appendChild(this.tree);
     }
 }

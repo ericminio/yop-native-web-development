@@ -29,9 +29,11 @@ let server = require('http').createServer(function(request, response) {
     }
     else if (request.url == '/api/news.bad') {
         response.writeHead(200, { 'content-type':'application/json' })
-        response.end(JSON.stringify({
-            news: []
-        }))
+        setTimeout(function(){
+            response.end(JSON.stringify({
+                news: []
+            }))
+        }, 1500)
     }
     else if (request.url == '/all.css') {
         response.writeHead(200, { 'content-type':'text/css' })
