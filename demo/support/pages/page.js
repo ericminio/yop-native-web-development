@@ -7,7 +7,9 @@ var Page = function(driver, options) {
         'yop-greetings',
         'yop-menu',
         'yop-route',
-        'yop-display'
+        'yop-display',
+        'yop-if-not-empty',
+        'yop-if-empty'
     ]
 }
 Page.prototype.open = async function(url) {
