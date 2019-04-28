@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/all.css">
+    </head>
+    <body>
+        <yop-load-news></yop-load-news>
+
+        <div>
+            <label>Good news</label>
+            <yop-spinner listen="loading.good.news"></yop-spinner>
+
+            <yop-if-empty collection="good.news">
+                <label id="good-news-empty-message">No news, good news</label>
+            </yop-if-empty>
+            <yop-if-not-empty collection="good.news">
+                <yop-display news="good.news" id-prefix="good-news"></yop-display>
+            </yop-if-not-empty>
+        </div>
+
+        <div>
+            <label>So-so news</label>
+
+            <yop-if-empty collection="bad.news">
+                <label id="bad-news-empty-message">No bad news, very good news :)</label>
+            </yop-if-empty>
+            <yop-if-not-empty collection="bad.news">
+                <yop-display news="bad.news" id-prefix="bad-news"></yop-display>
+            </yop-if-not-empty>
+        </div>
+
+        <script src="/all.js"></script>
+    </body>
+</html>
