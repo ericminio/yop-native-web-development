@@ -33,11 +33,11 @@ let server = require('http').createServer(function(request, response) {
     }
     else if (request.url == '/all.css') {
         response.writeHead(200, { 'content-type':'text/css' })
-        response.end(require('fs').readFileSync('demo/support/apps/10/css/all.css').toString())
+        response.end(require('fs').readFileSync(path.join(__dirname, 'css', 'all.css')).toString())
     }
     else {
         response.writeHead(200, { 'content-type':'text/html' })
-        response.end(require('fs').readFileSync('demo/support/apps/10/index.html').toString())
+        response.end(require('fs').readFileSync(path.join(__dirname, 'index.html')).toString())
     }
 })
 let port = 5010
