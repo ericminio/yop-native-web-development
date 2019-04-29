@@ -1,0 +1,42 @@
+body {
+    background-color: #e3e5e8;
+    margin: 0px;
+}
+
+.title {
+    font-size: 42px;
+    text-align: center;
+    background-color: #184896;
+    color: white;
+}
+
+
+.section {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display:inline-block;
+    width: 46%;
+    margin: 0px 1% 10px 1%;
+    padding: 5px;
+}
+.one {
+    position:fixed;
+}
+.two {
+    float:right;
+}
+
+@media screen and (max-width: 992px) {
+    .section {
+        display: block;
+        width:95%;
+    }
+    .one, .two {
+        position:relative;
+        float:none;
+    }
+}
+.section-title {
+    font-weight: bold;
+}
