@@ -20,7 +20,7 @@ class Display extends YafElement {
         this.tree.appendChild(displayTemplate.content.cloneNode(true))
         this.list = this.tree.querySelector('tbody')
         this.template = this.tree.querySelector('tr#news-with-id').outerHTML
-                            .split('news').join(this.getAttribute('id-prefix'))
+                            .split('news').join(this.getAttribute('news'))
         this.mappings = [
             { replace: 'with-id', with: (item)=>item.id },
             { replace: 'always good', with: (item)=>item.title },

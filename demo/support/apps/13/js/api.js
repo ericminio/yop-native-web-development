@@ -1,10 +1,10 @@
 class Api {
     getGoodNews() {
         var p = new Promise((resolve, reject)=>{
-            events.notify('loading.good.news', 'start')
+            events.notify('loading good news', 'start')
             fetch('/api/news.good').then((response) => {
                 response.json().then((json) => {
-                    events.notify('loading.good.news', 'done')
+                    events.notify('loading good news', 'done')
                     resolve(json.news)
                 })
             })
@@ -13,10 +13,10 @@ class Api {
     }
     getBadNews() {
         var p = new Promise((resolve, reject)=>{
-            events.notify('loading.bad.news', 'start')
+            events.notify('loading bad news', 'start')
             fetch('/api/news.bad').then((response) => {
                 response.json().then((json) => {
-                    events.notify('loading.bad.news', 'done')
+                    events.notify('loading bad news', 'done')
                     resolve(json.news)
                 })
             })

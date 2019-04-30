@@ -5,11 +5,9 @@ class Spinner extends YafElement {
         this.tree.style = 'display:inline'
     }
     connectedCallback() {
-        console.log('listen', this.getAttribute('listen'));
         events.register(this, this.getAttribute('listen'))
     }
     update(state) {
-        console.log('spinner', state);
         if (state == 'start' ) {
             this.tree.innerHTML = '(loading...)'
         }
