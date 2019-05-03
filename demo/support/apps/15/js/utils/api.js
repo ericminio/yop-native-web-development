@@ -15,8 +15,20 @@ class Api {
         var p = new Promise((resolve, reject)=>{
             events.notify('loading bad news', 'start')
             fetch('/api/news.bad').then((response) => {
-                response.json().then((json) => {                    
+                response.json().then((json) => {
                     events.notify('loading bad news', 'done')
+                    resolve(json.news)
+                })
+            })
+        })
+        return p
+    }
+    getAllNews() {
+        var p = new Promise((resolve, reject)=>{
+            events.notify('loading all news', 'start')
+            fetch('/api/news.all').then((response) => {
+                response.json().then((json) => {
+                    events.notify('loading all news', 'done')
                     resolve(json.news)
                 })
             })

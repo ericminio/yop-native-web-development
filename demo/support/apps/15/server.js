@@ -19,6 +19,8 @@ let server = require('http').createServer(function(request, response) {
         response.writeHead(200, { 'content-type':'application/javascript' })
         let js = ''
         js += folder(__dirname, 'js', 'yop')
+        js += folder(__dirname, 'js', 'utils')
+        js += folder(__dirname, 'js', 'pages')
         js += folder(__dirname, 'js')
         response.end(js)
     }
@@ -43,6 +45,19 @@ let server = require('http').createServer(function(request, response) {
                 ]
             }))
         }, 1500)
+    }
+    else if (request.url == '/api/news.all') {
+        response.writeHead(200, { 'content-type':'application/json' })
+        setTimeout(function(){
+            response.end(JSON.stringify({
+                news: [
+                    { id:1, type:'good', title:'Gaining power', date:'2019-05-01T14:33:14Z' },
+                    { id:2, type:'good', title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
+                    { id:3, type:'good', title:'Still just a whisper', date:'2019-04-10T09:00:00Z' },
+                    { id:10, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
+                ]
+            }))
+        }, 1000)
     }
     else if (request.url == '/all.css') {
         response.writeHead(200, { 'content-type':'text/css' })
