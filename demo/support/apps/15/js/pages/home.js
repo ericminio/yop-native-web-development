@@ -14,7 +14,7 @@ homeTemplate.innerHTML = `
         <label id="good-news-empty-message">No news, good news</label>
     </yop-if-empty>
     <yop-if-not-empty collection="good-news">
-        <yop-display news="good-news"></yop-display>
+        <yop-news-list news="good-news"></yop-news-list>
     </yop-if-not-empty>
 </div>
 
@@ -26,7 +26,7 @@ homeTemplate.innerHTML = `
         <label id="bad-news-empty-message">No bad news... very good news :)</label>
     </yop-if-empty>
     <yop-if-not-empty collection="bad-news">
-        <yop-display news="bad-news"></yop-display>
+        <yop-news-list news="bad-news"></yop-news-list>
     </yop-if-not-empty>
 </div>
 `

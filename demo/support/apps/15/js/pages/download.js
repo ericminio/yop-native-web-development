@@ -14,7 +14,7 @@ downloadTemplate.innerHTML = `
         <label id="all-news-empty-message">No news... good news</label>
     </yop-if-empty>
     <yop-if-not-empty collection="all-news">
-        <yop-display news="all-news"></yop-display>
+        <yop-selectable-news-list news="all-news"></yop-selectable-news-list>
     </yop-if-not-empty>
 </div>
 `

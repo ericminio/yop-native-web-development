@@ -19,8 +19,11 @@ describe('Downloading a file', function() {
 
     it('is easy', async ()=> {
         page = await HomePage(driver, port)
+        await page.click('#menu-download')
+        await page.click('#select-all-news-2')
+        await page.click('#select-all-news-3')
         if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
-        expect(await page.text('#good-news-1-title')).to.equal('Gaining power')
+        expect(await page.text('#all-news-1-title')).to.equal('Gaining power')
     })
 })

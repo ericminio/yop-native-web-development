@@ -1,10 +1,23 @@
-const displayTemplate = document.createElement('template')
+const newsListTemplate = document.createElement('template')
 
-displayTemplate.innerHTML = `
+newsListTemplate.innerHTML = `
+    <style>
+        .align-left {
+            text-align:left;
+        }
+        .align-right {
+            text-align:right;
+        }
+        .align-center {
+            text-align:center;
+        }
+    </style>
     <table width="100%">
         <thead>
-            <th style="text-align:left">Title</th>
-            <th style="text-align:right">Date</th>
+            <tr>
+                <th class="align-left">Title</th>
+                <th class="align-right">Date</th>
+            </tr>
         </thead>
         <tbody>
             <tr id="news-with-id">
@@ -15,11 +28,11 @@ displayTemplate.innerHTML = `
     </table>
 `
 
-class Display extends YopElement {
+class NewsList extends YopElement {
 
     constructor() {
         super()
-        this.tree.appendChild(displayTemplate.content.cloneNode(true))
+        this.tree.appendChild(newsListTemplate.content.cloneNode(true))
         this.list = this.tree.querySelector('tbody')
         this.template = this.tree.querySelector('tr#news-with-id').outerHTML
                             .split('news').join(this.getAttribute('news'))
@@ -32,8 +45,8 @@ class Display extends YopElement {
     connectedCallback() {
         events.register(this, this.getAttribute('news'))
     }
-    update(news) {        
+    update(news) {
         this.list.innerHTML = repeat(this.template, news, this.mappings)
     }
 }
-customElements.define('yop-display', Display)
+customElements.define('yop-news-list', NewsList)

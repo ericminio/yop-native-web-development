@@ -10,7 +10,10 @@ var Page = function(driver, options) {
         'yop-display',
         'yop-if-not-empty',
         'yop-if-empty',
-        'yop-home'
+        'yop-home',
+        'yop-download',
+        'yop-news-list',
+        'yop-selectable-news-list',
     ]
 }
 Page.prototype.open = async function(url) {

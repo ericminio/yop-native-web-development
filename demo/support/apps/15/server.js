@@ -26,38 +26,32 @@ let server = require('http').createServer(function(request, response) {
     }
     else if (request.url == '/api/news.good') {
         response.writeHead(200, { 'content-type':'application/json' })
-        setTimeout(function(){
-            response.end(JSON.stringify({
-                news: [
-                    { id:1, title:'Gaining power', date:'2019-05-01T14:33:14Z' },
-                    { id:2, title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
-                    { id:3, title:'Still just a whisper', date:'2019-04-10T09:00:00Z' }
-                ]
-            }))
-        }, 1000)
+        response.end(JSON.stringify({
+            news: [
+                { id:1, title:'Gaining power', date:'2019-05-01T14:33:14Z' },
+                { id:2, title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
+                { id:3, title:'Still just a whisper', date:'2019-04-10T09:00:00Z' }
+            ]
+        }))
     }
     else if (request.url == '/api/news.bad') {
         response.writeHead(200, { 'content-type':'application/json' })
-        setTimeout(function(){
-            response.end(JSON.stringify({
-                news: [
-                    { id:10, title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
-                ]
-            }))
-        }, 1500)
+        response.end(JSON.stringify({
+            news: [
+                { id:10, title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
+            ]
+        }))
     }
     else if (request.url == '/api/news.all') {
         response.writeHead(200, { 'content-type':'application/json' })
-        setTimeout(function(){
-            response.end(JSON.stringify({
-                news: [
-                    { id:1, type:'good', title:'Gaining power', date:'2019-05-01T14:33:14Z' },
-                    { id:2, type:'good', title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
-                    { id:3, type:'good', title:'Still just a whisper', date:'2019-04-10T09:00:00Z' },
-                    { id:10, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
-                ]
-            }))
-        }, 1000)
+        response.end(JSON.stringify({
+            news: [
+                { id:1, type:'good', title:'Gaining power', date:'2019-05-01T14:33:14Z' },
+                { id:2, type:'good', title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
+                { id:3, type:'good', title:'Still just a whisper', date:'2019-04-10T09:00:00Z' },
+                { id:10, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
+            ]
+        }))
     }
     else if (request.url == '/all.css') {
         response.writeHead(200, { 'content-type':'text/css' })
