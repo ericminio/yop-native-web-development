@@ -10,7 +10,7 @@ let options = new firefox.Options()
      .setPreference('browser.download.folderList', 2)
      .setPreference('browser.download.manager.showWhenStarting', false)
      .setPreference('browser.download.dir', downloadFolder)
-     .setPreference('browser.helperApps.neverAsk.saveToDisk', 'application/zip')
+     .setPreference('browser.helperApps.neverAsk.saveToDisk', 'text/plain')
      .setPreference('devtools.console.stdout.content', true)
 
 let loggingPrefs = new logging.Preferences()

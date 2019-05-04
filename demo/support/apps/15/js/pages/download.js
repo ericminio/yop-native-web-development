@@ -15,6 +15,7 @@ downloadTemplate.innerHTML = `
     </yop-if-empty>
     <yop-if-not-empty collection="all-news">
         <yop-selectable-news-list news="all-news"></yop-selectable-news-list>
+        <yop-download-button></yop-download-button>
     </yop-if-not-empty>
 </div>
 `

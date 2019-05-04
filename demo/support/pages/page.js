@@ -14,6 +14,8 @@ var Page = function(driver, options) {
         'yop-download',
         'yop-news-list',
         'yop-selectable-news-list',
+        'yop-download',
+        'yop-download-button'
     ]
 }
 Page.prototype.open = async function(url) {

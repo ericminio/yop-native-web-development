@@ -15,11 +15,14 @@ var folder = function(...name) {
 }
 
 let server = require('http').createServer(function(request, response) {
+    var parts = require('url').parse(request.url)
+
     if (request.url == '/all.js') {
         response.writeHead(200, { 'content-type':'application/javascript' })
         let js = ''
         js += folder(__dirname, 'js', 'yop')
-        js += folder(__dirname, 'js', 'utils')
+        js += folder(__dirname, 'js', 'api')
+        js += folder(__dirname, 'js', 'pages', 'components')
         js += folder(__dirname, 'js', 'pages')
         js += folder(__dirname, 'js')
         response.end(js)
@@ -52,6 +55,10 @@ let server = require('http').createServer(function(request, response) {
                 { id:10, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
             ]
         }))
+    }
+    else if (parts.pathname == '/api/download') {
+        response.writeHead(200, { 'content-type':'text/plain' })
+        response.end('hello the news :)')
     }
     else if (request.url == '/all.css') {
         response.writeHead(200, { 'content-type':'text/css' })
