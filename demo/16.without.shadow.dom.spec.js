@@ -6,9 +6,9 @@ var fs = require('fs')
 var path = require('path')
 var process = require('process')
 
-var { server, port } = require('./support/apps/15/server')
+var { server, port } = require('./support/apps/16/server')
 
-describe('Downloading a file', function() {
+describe('Using shadow DOM', function() {
 
     var driver
 
@@ -39,14 +39,13 @@ describe('Downloading a file', function() {
         await driver.quit()
     })
 
-    it('is easy', async ()=> {
+    it('is not mandatory if scoping is not your primary concern', async ()=> {
         page = await HomePage(driver, port)
+        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+
         await page.click('#menu-download')
         await page.click('#select-all-news-2')
         await page.click('#select-all-news-3')
-
-        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
-
         await page.click('#download-button')
         var content = fs.readFileSync(path.join(__dirname, 'download', 'news.txt')).toString()
 
