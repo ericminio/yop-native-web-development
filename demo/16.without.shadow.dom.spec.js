@@ -49,6 +49,23 @@ describe('Using shadow DOM', function() {
         await page.click('#download-button')
         var content = fs.readFileSync(path.join(__dirname, 'download', 'news.txt')).toString()
 
-        expect(content).to.equal('hello the news :)')
+        expect(content).to.equal(expected)
     })
+
+    var expected = `{
+    "news": [
+        {
+            "id": 2,
+            "type": "good",
+            "title": "Starting its adventure",
+            "date": "2019-04-20T09:00:00Z"
+        },
+        {
+            "id": 3,
+            "type": "good",
+            "title": "Still just a whisper",
+            "date": "2019-04-10T09:00:00Z"
+        }
+    ]
+}`
 })

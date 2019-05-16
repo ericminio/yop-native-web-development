@@ -14,7 +14,15 @@ var folder = function(...name) {
     return content
 }
 
-let server = require('http').createServer(function(request, response) {
+var news = [
+    { id:1, type:'good', title:'Gaining power', date:'2019-05-01T14:33:14Z' },
+    { id:2, type:'good', title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
+    { id:3, type:'good', title:'Still just a whisper', date:'2019-04-10T09:00:00Z' },
+
+    { id:10, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
+]
+
+let server = require('http').createServer((request, response)=> {
     var parts = require('url').parse(request.url)
 
     if (request.url == '/all.js') {
@@ -30,35 +38,29 @@ let server = require('http').createServer(function(request, response) {
     else if (request.url == '/api/news.good') {
         response.writeHead(200, { 'content-type':'application/json' })
         response.end(JSON.stringify({
-            news: [
-                { id:1, title:'Gaining power', date:'2019-05-01T14:33:14Z' },
-                { id:2, title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
-                { id:3, title:'Still just a whisper', date:'2019-04-10T09:00:00Z' }
-            ]
+            news: news.filter((candidate)=> candidate.type=='good')
         }))
     }
     else if (request.url == '/api/news.bad') {
         response.writeHead(200, { 'content-type':'application/json' })
         response.end(JSON.stringify({
-            news: [
-                { id:10, title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
-            ]
+            news: news.filter((candidate)=> candidate.type=='bad')
         }))
     }
     else if (request.url == '/api/news.all') {
         response.writeHead(200, { 'content-type':'application/json' })
         response.end(JSON.stringify({
-            news: [
-                { id:1, type:'good', title:'Gaining power', date:'2019-05-01T14:33:14Z' },
-                { id:2, type:'good', title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
-                { id:3, type:'good', title:'Still just a whisper', date:'2019-04-10T09:00:00Z' },
-                { id:10, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
-            ]
+            news: news
         }))
     }
     else if (parts.pathname == '/api/download') {
+        var ids = require('querystring').parse(parts.query).id
+        ids = typeof ids == 'object' ? ids : [ids]
+        ids = ids.map((id)=> parseInt(id))
         response.writeHead(200, { 'content-type':'text/plain' })
-        response.end('hello the news :)')
+        response.end(JSON.stringify({
+            news: news.filter((candidate)=> ids.includes(candidate.id))
+        }, null, 4))
     }
     else if (request.url == '/all.css') {
         response.writeHead(200, { 'content-type':'text/css' })
