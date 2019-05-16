@@ -6,6 +6,7 @@ logoutTemplate.innerHTML = `
             border-left: 1px solid white;
             padding-left: 15px;
             margin-left: 15px;
+            cursor: pointer;
         }
     </style>
     <span id="logout">logout</span>
@@ -21,16 +22,14 @@ class Logout extends YopElement {
     connectedCallback() {
         this.appendChild(logoutTemplate.content.cloneNode(true))
     }
-    update(user, event) {
+    update() {
         if (!this.isConnected) { return }
 
-        if ('connected' == event) {
-            this.querySelector('#logout').addEventListener('click', ()=>{
-                store.delete('user')
-                events.notify('disconnected')
-                navigate.to('/')
-            })
-        }
+        this.querySelector('#logout').addEventListener('click', ()=>{
+            store.delete('user')
+            events.notify('disconnected')
+            navigate.to('/')
+        })
     }
 
 }

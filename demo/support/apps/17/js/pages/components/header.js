@@ -20,7 +20,6 @@ headerTemplate.innerHTML = `
         }
         .logout-cell {
             text-align: right;
-            cursor: pointer;
             padding-right: 20px;
         }
     </style>
