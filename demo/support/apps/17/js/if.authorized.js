@@ -7,7 +7,8 @@ class IfAuthorized extends YopElement {
         events.register(this, 'priviledges')
     }
     connectedCallback() {
-        api.isAuthorized().then((data)=>{
+        let username = store.get(this.getAttribute('who'))
+        api.isAuthorized(username).then((data)=>{
             events.notify('priviledges', data)
         })
     }

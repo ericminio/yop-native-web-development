@@ -44,10 +44,16 @@ describe('Authorization in the front end', function() {
         if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         await page.input('#username', 'Joe')
+        await page.wait(1*1*1000)
+        await page.click('#login')
         expect(await page.texts('.menu')).to.equal('HOMEDOWNLOAD')
+        await page.wait(1*1*1000)
 
         await page.click('#logout')
         await page.input('#username', 'Boss')
+        await page.wait(1*1*1000)
+        await page.click('#login')
         expect(await page.texts('.menu')).to.equal('HOMEDOWNLOADPUBLISH')
+        await page.wait(1*3*1000)
     })
 })

@@ -1,6 +1,8 @@
 const downloadTemplate = document.createElement('template')
 
 downloadTemplate.innerHTML = `
+    <yop-menu></yop-menu>
+    
     <div class="section">
         <label class="section-title">All news</label>
         <yop-spinner color="black" size="18px" listen="loading all news"></yop-spinner>

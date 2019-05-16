@@ -1,6 +1,8 @@
 const homeTemplate = document.createElement('template')
 
 homeTemplate.innerHTML = `
+    <yop-menu></yop-menu>
+    
     <div class="half-section one">
         <label class="section-title">Good news</label>
         <yop-spinner color="black" size="18px" listen="loading good news"></yop-spinner>
