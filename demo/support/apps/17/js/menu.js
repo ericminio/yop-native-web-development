@@ -5,6 +5,9 @@ menuTemplate.innerHTML = `
         <ul>
             <li class="menu" id="menu-home">HOME</li>
             <li class="menu with-separator" id="menu-download">DOWNLOAD</li>
+            <if-authorized who="user">
+                <li class="menu with-separator" id="menu-download">PUBLISH</li>
+            </if-authorized>
         </ul>
     </div>
 `

@@ -67,6 +67,13 @@ let server = require('http').createServer((request, response)=> {
         response.writeHead(200, { 'content-type':'text/css' })
         response.end(require('fs').readFileSync(path.join(__dirname, 'css', 'all.css')).toString())
     }
+    else if (parts.pathname == '/api/priviledges') {
+        var user = require('querystring').parse(parts.query).user.toLowerCase()
+        response.writeHead(200, { 'content-type':'application/json' })
+        response.end(JSON.stringify({
+            canPublish: user == 'boss'
+        }, null, 4))
+    }
     else {
         response.writeHead(200, { 'content-type':'text/html' })
         response.end(require('fs').readFileSync(path.join(__dirname, 'index.html')).toString())

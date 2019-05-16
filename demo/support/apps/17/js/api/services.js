@@ -45,5 +45,15 @@ class Api {
         })
         return p
     }
+    isAuthorized(user) {
+        var p = new Promise((resolve, reject)=>{
+            fetch('/api/priviledges?user=' + user).then((response) => {
+                response.json().then((data) => {
+                    resolve(data)
+                })
+            })
+        })
+        return p
+    }
 }
 var api = new Api()

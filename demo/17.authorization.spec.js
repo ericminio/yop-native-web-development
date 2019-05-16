@@ -8,7 +8,7 @@ var process = require('process')
 
 var { server, port } = require('./support/apps/17/server')
 
-describe('Authorization', function() {
+describe('Authorization in the front end', function() {
 
     var driver
 
@@ -39,7 +39,7 @@ describe('Authorization', function() {
         await driver.quit()
     })
 
-    it('is again up to you to invent', async ()=> {
+    it('is just another conditional rendering component', async ()=> {
         page = await HomePage(driver, port)
         if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
