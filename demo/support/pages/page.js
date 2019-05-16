@@ -25,6 +25,14 @@ Page.prototype.text = async function(selector) {
     let element = await this.findElement(selector)
     return await element.getText()
 }
+Page.prototype.texts = async function(selector) {
+    let elements = await this.findElements(selector)
+    let value = ''
+    for (let i=0; i<elements.length; i++) {
+        value += await elements[i].getText()
+    }
+    return value
+}
 Page.prototype.input = async function(selector, value) {
     let field = await this.findElement(selector)
     await field.sendKeys(value)
@@ -39,6 +47,9 @@ Page.prototype.list = async function(selector) {
 }
 Page.prototype.wait = async function(ms) {
     await this.driver.sleep(ms)
+}
+Page.prototype.findElements = async function(selector) {
+    return await this.driver.findElements(By.css(selector))
 }
 Page.prototype.findElement = async function(selector) {
     try {
@@ -60,20 +71,25 @@ Page.prototype.findElement = async function(selector) {
     }
 }
 Page.prototype.inspect = async function(dom, selector) {
-    let search = 'return arguments[0].shadowRoot.querySelector("' + selector + '")'
-    let element = await this.driver.executeScript(search, dom)
-    if (element) { return element }
-
-    var children = []
-    for (let k=0; k<this.elements.length; k++) {
-        let name = this.elements[k]
-        let script = 'return arguments[0].shadowRoot.querySelectorAll("' + name + '")'
-        let doms = await this.driver.executeScript(script, dom)
-        children = children.concat(doms)
-    }
-    for (let i=0; i<children.length; i++) {
-        let element = await this.inspect(children[i], selector)
+    try {
+        let search = 'return arguments[0].shadowRoot.querySelector("' + selector + '")'
+        let element = await this.driver.executeScript(search, dom)
         if (element) { return element }
+
+        var children = []
+        for (let k=0; k<this.elements.length; k++) {
+            let name = this.elements[k]
+            let script = 'return arguments[0].shadowRoot.querySelectorAll("' + name + '")'
+            let doms = await this.driver.executeScript(script, dom)
+            children = children.concat(doms)
+        }
+        for (let i=0; i<children.length; i++) {
+            let element = await this.inspect(children[i], selector)
+            if (element) { return element }
+        }
+    }
+    catch (error) {
+        return undefined
     }
 }
 
