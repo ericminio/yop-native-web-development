@@ -33,9 +33,12 @@ class Login extends YopElement {
             let username = this.querySelector('#username').value
             store.save('user', username)
             events.notify('connected', username)
-            history.pushState({}, null, '/home');
-            events.notify('navigation')
+            navigate.to('/home')
         })
+        let username = store.get('user')
+        if (username) {
+            navigate.to('/home')
+        }
     }
 }
 customElements.define('yop-login', Login)

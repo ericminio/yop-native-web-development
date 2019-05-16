@@ -28,8 +28,7 @@ class Logout extends YopElement {
             this.querySelector('#logout').addEventListener('click', ()=>{
                 store.delete('user')
                 events.notify('disconnected')
-                history.pushState({}, null, '/');
-                events.notify('navigation')
+                navigate.to('/')
             })
         }
     }

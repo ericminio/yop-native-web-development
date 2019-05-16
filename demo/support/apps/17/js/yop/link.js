@@ -7,8 +7,7 @@ class Link extends YopElement {
 
     connectedCallback() {
         this.addEventListener('click', (e)=>{
-            history.pushState({}, null, this.getAttribute('to'));
-            events.notify('navigation')
+            navigate.to(this.getAttribute('to'))
         })
     }
 }
