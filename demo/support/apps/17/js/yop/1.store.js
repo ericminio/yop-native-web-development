@@ -1,15 +1,15 @@
 class Store {
     constructor() {
-        this.map = {}
+        this.map = window.localStorage
     }
     save(id, value) {
-        this.map[id] = value
+        this.map.setItem(id, value)
     }
     get(id) {
-        return this.map[id]
+        return this.map.getItem(id)
     }
     delete(id) {
-        this.map[id] = undefined
+        this.map.removeItem(id)
     }
 }
 var store = new Store()

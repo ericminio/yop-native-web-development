@@ -8,6 +8,13 @@ class IfConnected extends YopElement {
         events.register(this, 'disconnected')
     }
 
+    connectedCallback() {
+        let username = store.get('user')
+        if (username) {
+            events.notify('connected', username)
+        }
+    }
+
     update(user, event) {
         if (event == 'connected') {
             this.innerHTML = this.connectedContent
