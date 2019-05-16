@@ -1,6 +1,13 @@
 const logoutTemplate = document.createElement('template')
 
 logoutTemplate.innerHTML = `
+    <style>
+        #logout {
+            border-left: 1px solid white;
+            padding-left: 15px;
+            margin-left: 15px;
+        }
+    </style>
     <span id="logout">logout</span>
 `
 

@@ -32,6 +32,7 @@ headerTemplate.innerHTML = `
                     <td class="big">News Post</td>
                     <td class="logout-cell">
                         <if-connected>
+                            <yop-greetings></yop-greetings>
                             <yop-logout></yop-logout>
                         </if-connected>
                     </td>
