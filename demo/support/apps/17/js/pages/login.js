@@ -32,7 +32,7 @@ class Login extends YopElement {
         this.querySelector('#login').addEventListener('click', (e)=>{
             let username = this.querySelector('#username').value
             store.save('user', username)
-            events.notify('connected')
+            events.notify('connected', username)
             history.pushState({}, null, '/home');
             events.notify('navigation')
         })
