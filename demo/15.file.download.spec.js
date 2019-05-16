@@ -19,6 +19,10 @@ describe('Downloading a dynamically generated file', function() {
         else {
 
             var downloadFolder = path.join(process.cwd(), 'demo', 'download')
+            var files = fs.readdirSync(downloadFolder)
+            for (let i=0; i<files.length; i++) {
+                fs.unlinkSync(path.join(process.cwd(), 'demo', 'download', files[i]))
+            }
 
             let options = new firefox.Options()
                  .setPreference('browser.download.folderList', 2)

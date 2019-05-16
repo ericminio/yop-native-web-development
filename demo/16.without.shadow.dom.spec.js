@@ -19,6 +19,10 @@ describe('Using shadow DOM', function() {
         else {
 
             var downloadFolder = path.join(process.cwd(), 'demo', 'download')
+            var files = fs.readdirSync(downloadFolder)
+            for (let i=0; i<files.length; i++) {
+                fs.unlinkSync(path.join(process.cwd(), 'demo', 'download', files[i]))
+            }
 
             let options = new firefox.Options()
                  .setPreference('browser.download.folderList', 2)
@@ -44,7 +48,7 @@ describe('Using shadow DOM', function() {
         if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         await page.click('#menu-download')
-        await page.click('#select-all-news-2')
+        await page.click('#select-all-news-1')
         await page.click('#select-all-news-3')
         await page.click('#download-button')
         var content = fs.readFileSync(path.join(__dirname, 'download', 'news.txt')).toString()
@@ -55,10 +59,10 @@ describe('Using shadow DOM', function() {
     var expected = `{
     "news": [
         {
-            "id": 2,
+            "id": 1,
             "type": "good",
-            "title": "Starting its adventure",
-            "date": "2019-04-20T09:00:00Z"
+            "title": "Gaining power",
+            "date": "2019-05-01T14:33:14Z"
         },
         {
             "id": 3,
