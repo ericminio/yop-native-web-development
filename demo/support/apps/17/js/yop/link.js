@@ -1,8 +1,3 @@
-const linkTemplate = document.createElement('template')
-
-linkTemplate.innerHTML = `
-`
-
 class Link extends YopElement {
 
     connectedCallback() {
