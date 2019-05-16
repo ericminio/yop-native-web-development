@@ -9,11 +9,9 @@ class IfConnected extends YopElement {
     }
     connectedCallback() {
         let data = store.get(this.getAttribute('data'))
-        console.log('data=', data);
         if (data) {
             this.innerHTML = this.definedContent
         }
-        events.register(this, 'user')
     }
     update(user, state) {
         if (state == 'connected') {

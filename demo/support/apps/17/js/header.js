@@ -44,7 +44,7 @@ headerTemplate.innerHTML = `
 class Header extends YopElement {
 
     connectedCallback() {
-        this.appendChild(headerTemplate.content.cloneNode(true))        
+        this.appendChild(headerTemplate.content.cloneNode(true))
     }
 }
 customElements.define('yop-header', Header)

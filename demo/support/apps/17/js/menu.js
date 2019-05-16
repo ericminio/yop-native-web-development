@@ -8,8 +8,12 @@ menuTemplate.innerHTML = `
     </style>
     <div class="ribbon">
         <ul>
-            <li class="menu" id="menu-home">HOME</li>
-            <li class="menu with-separator" id="menu-download">DOWNLOAD</li>
+            <yop-link to="/home">
+                <li class="menu">HOME</li>
+            </yop-link>
+            <yop-link to="/download">
+                <li class="menu with-separator" id="menu-download">DOWNLOAD</li>
+            </yop-link>
             <if-authorized who="user">
                 <li class="menu with-separator red" id="menu-publish">PUBLISH</li>
             </if-authorized>
@@ -21,16 +25,6 @@ class Menu extends YopElement {
 
     connectedCallback() {
         this.appendChild(menuTemplate.content.cloneNode(true))
-        this.home = this.querySelector('#menu-home')
-        this.download = this.querySelector('#menu-download')
-        this.home.addEventListener('click', ()=>{
-            history.pushState({}, null, '/home');
-            events.notify('navigation')
-        })
-        this.download.addEventListener('click', ()=>{
-            history.pushState({}, null, '/download');
-            events.notify('navigation')
-        })
     }
 }
 customElements.define('yop-menu', Menu)
