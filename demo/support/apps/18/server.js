@@ -14,6 +14,8 @@ var folder = function(...name) {
     }
     return content
 }
+var dates = fs.readFileSync(path.join(__dirname, 'js', 'yop', 'dates.js')).toString()
+var dateLabelFromDate = (new Function(dates + ' return dateLabelFromDate;'))()
 
 var news = [
     { id:1, type:'good', title:'Gaining power', date:'2019-05-01T14:33:14Z' },
@@ -21,7 +23,7 @@ var news = [
     { id:3, type:'good', title:'Still just a whisper', date:'2019-04-10T09:00:00Z' },
 
     { id:4, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
-]
+].sort((a,b)=> a.date < b.date)
 
 let server = require('http').createServer((request, response)=> {
     var parts = require('url').parse(request.url)
@@ -80,8 +82,9 @@ let server = require('http').createServer((request, response)=> {
             id: news.length + 1,
             type: newNews.type,
             title: newNews.title,
-            date: '2019-05-01T14:33:14Z'
+            date: dateLabelFromDate(new Date())
         })
+        news.sort((a,b)=> a.date < b.date)
         response.writeHead(200, { 'content-type':'application/json' })
         response.end(JSON.stringify({ allGood:true }))
     }

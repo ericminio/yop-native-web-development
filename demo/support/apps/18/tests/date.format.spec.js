@@ -3,6 +3,7 @@ var fs = require('fs')
 var path = require('path')
 var sut = fs.readFileSync(path.join(__dirname, '..', 'js', 'yop', 'dates.js')).toString()
 var dateLabelFrom = (new Function(sut + ' return dateLabelFrom;'))()
+var dateLabelFromDate = (new Function(sut + ' return dateLabelFromDate;'))()
 
 describe('The date format that we need', ()=>{
 
@@ -11,5 +12,8 @@ describe('The date format that we need', ()=>{
     })
     it('is time zone aware', ()=>{
         expect(dateLabelFrom('2019-05-01T06:00:00Z')).to.equal('2019-04-30 23:00:00')
+    })
+    it('can digest a Date', ()=>{
+        expect(dateLabelFromDate(new Date('2019-05-01T14:33:14Z'))).to.equal('2019-05-01 07:33:14')
     })
 })
