@@ -8,6 +8,6 @@ addons:
 install:
   - yarn
 before_script:
-  - export PATH=$PATH:$TRAVIS_BUILD_DIR/demo/support/webdriver/linux
+  - export PATH=$PATH:./demo/support/webdriver/linux
 script:
   - npm run test
