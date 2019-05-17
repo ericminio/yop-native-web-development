@@ -1,0 +1,150 @@
+body {
+    background-color: #e3e5e8;
+    margin: 0px;
+}
+
+.section {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display:inline-block;
+    width: 96%;
+    margin: 0px 1% 10px 1%;
+    padding: 5px;
+}
+.half-section {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display:inline-block;
+    width: 46%;
+    margin: 0px 1% 10px 1%;
+    padding: 5px;
+}
+.one {
+    position:fixed;
+}
+.two {
+    float:right;
+}
+
+@media screen and (max-width: 992px) {
+    .half-section {
+        display: block;
+        width:95%;
+    }
+    .one, .two {
+        position:relative;
+        float:none;
+    }
+}
+.section-title {
+    font-weight: bold;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.action {
+    height: 20px;
+    cursor: pointer;
+    padding: 10px 5px 5px 5px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.align-left {
+    text-align:left;
+}
+.align-right {
+    text-align:right;
+}
+.align-center {
+    text-align:center;
+}
+ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+li {
+    display: inline-block;
+    vertical-align: top;
+}
+.ribbon {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    background-color: white;
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 25px;
+}
+.menu {
+    color: black;
+    font-size: 13px;
+    margin-right: 25px;
+    cursor: pointer;
+}
+.with-separator {
+    border-left: 1px solid black;
+    padding-left: 25px;
+}
+.publish {
+    width: 75%;
+    margin: 25px 10% 10px 10%;
+}
+.steps {
+    background-color: #e3e5e8;
+    border-color: #e3e5e8;
+    height: 20px;
+}
+.next {
+    width: 100px;
+}
+
+.step-context {
+    border: 1px solid #e3e5e8;
+    background-color: #e3e5e8;
+}
+.step-context table {
+    width: 100%;
+    border-spacing: 0px;
+}
+.step-context td {
+    padding: 0px 10px 0px 10px;
+}
+.step-data {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px 10px 10px 10px;
+    padding: 5px;
+}
+.step-previous {
+    text-align: left;
+    cursor: pointer;
+}
+.step-next {
+    text-align: right;
+    cursor: pointer;
+}
+.step-next div, .step-previous div {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100px;
+    height: 20px;
+    text-align: center;
+}
+.step-data-section-title {
+    font-weight: bold;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.field-label {
+
+}
+.field-value {
+    color: gray;
+}
