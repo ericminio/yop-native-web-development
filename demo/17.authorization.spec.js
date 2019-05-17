@@ -13,7 +13,7 @@ describe('Authorization in the front end', function() {
     var driver
 
     beforeEach(async ()=> {
-        if (process.env.YAF_SHOW_AND_WAIT) {
+        if (process.env.SLIDE_SHOW_AND_WAIT) {
             driver = await new Builder().forBrowser('firefox').build()
         }
         else {
@@ -41,7 +41,7 @@ describe('Authorization in the front end', function() {
 
     it('is just another conditional rendering component', async ()=> {
         page = await HomePage(driver, port)
-        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         await page.input('#username', 'Joe')
         await page.wait(1*1*1000)

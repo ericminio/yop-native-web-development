@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha demo/*.spec.js --timeout 0 --exit",
     "slide:execute": "mocha demo/$SLIDE.*.spec.js --timeout 0 --exit",
-    "slide:show": "YAF_SHOW_AND_WAIT=true mocha demo/$SLIDE.*.spec.js --timeout 0 --exit"
+    "slide:show": "SLIDE_SHOW_AND_WAIT=true mocha demo/$SLIDE.*.spec.js --timeout 0 --exit"
   },
   "author": "",
   "license": "ISC",

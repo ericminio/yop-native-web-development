@@ -107,6 +107,7 @@ describe('Getting data asynchronously', function() {
 
     it('is not a point', async ()=> {
         page = await HomePage(driver)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         expect(await page.text('body')).to.contain('USA')
     })

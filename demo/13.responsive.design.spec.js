@@ -25,7 +25,7 @@ describe('Responsive design', function() {
         await driver.manage().window().setRect({ width:600, height:rect.height })
         await page.wait(1000)
 
-        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         expect(await page.text('#good-news-1-title')).to.equal('Gaining power')
         expect(await page.text('#good-news-2-title')).to.equal('Starting its adventure')

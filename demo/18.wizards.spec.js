@@ -13,7 +13,7 @@ describe('Wizards', function() {
     var driver
 
     beforeEach(async ()=> {
-        if (process.env.YAF_SHOW_AND_WAIT) {
+        if (process.env.SLIDE_SHOW_AND_WAIT) {
             driver = await new Builder().forBrowser('firefox').build()
         }
         else {
@@ -46,7 +46,7 @@ describe('Wizards', function() {
 
     it('call for a data exchange mechanism', async ()=> {
         page = await HomePage(driver, port)
-        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         await page.input('#username', 'Boss')
         await page.click('#login')

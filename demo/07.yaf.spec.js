@@ -100,6 +100,7 @@ describe('Calling it a framework', function() {
 
     it('is one ExtractFile away', async ()=> {
         page = await HomePage(driver)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
         await page.click('#country-2')
 
         expect(await page.text('#selection')).to.equal('You selected Canada')

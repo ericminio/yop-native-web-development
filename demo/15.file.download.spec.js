@@ -13,7 +13,7 @@ describe('Downloading a dynamically generated file', function() {
     var driver
 
     beforeEach(async ()=> {
-        if (process.env.YAF_SHOW_AND_WAIT) {
+        if (process.env.SLIDE_SHOW_AND_WAIT) {
             driver = await new Builder().forBrowser('firefox').build()
         }
         else {
@@ -47,11 +47,13 @@ describe('Downloading a dynamically generated file', function() {
 
     it('is easy', async ()=> {
         page = await HomePage(driver, port)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+
         await page.click('#menu-download')
         await page.click('#select-all-news-2')
         await page.click('#select-all-news-3')
 
-        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         await page.click('#download-button')
         var content = fs.readFileSync(path.join(__dirname, 'download', 'news.txt')).toString()

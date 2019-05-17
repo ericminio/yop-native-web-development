@@ -80,6 +80,7 @@ describe('The work to magically populate a list', function() {
 
     it('is not so difficult', async ()=> {
         page = await HomePage(driver)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         expect(await page.text('#name-1')).to.equal('France')
         expect(await page.text('#name-5')).to.equal('Spain')

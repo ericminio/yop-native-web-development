@@ -95,6 +95,7 @@ describe('Changing data to magically update a list', function() {
 
     it('requires a little more plumbing', async ()=> {
         page = await HomePage(driver)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
         expect(await page.text('body')).to.contain('USA')
 
         page.click('#modify')

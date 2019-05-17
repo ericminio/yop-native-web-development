@@ -70,6 +70,7 @@ describe('Inventing a component observer mechanism', function() {
 
     it('is up to you', async ()=> {
         page = await HomePage(driver)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
         page.input('#name', 'World')
 
         expect(await page.text('#greetings')).to.equal('Hello World')

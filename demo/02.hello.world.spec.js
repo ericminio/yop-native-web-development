@@ -43,6 +43,7 @@ describe('Moving data between elements', function() {
 
     it('is built-in', async ()=> {
         page = await HomePage(driver)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
         page.input('#name', 'World')
 
         expect(await page.text('#greetings')).to.equal('Hello World')

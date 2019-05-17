@@ -60,6 +60,7 @@ describe('Creating scoped/isolated components', function() {
 
     it('is built-in with shadow DOM and custom HTML elements', async ()=> {
         page = await HomePage(driver)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
         await page.click('#country-2')
 
         expect(await page.text('#welcome-message')).to.equal('Welcome people of Canada')

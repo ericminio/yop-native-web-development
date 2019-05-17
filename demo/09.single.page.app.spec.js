@@ -18,6 +18,7 @@ describe('Single-page app', function() {
 
     it('usually requires a routing mechanism', async ()=> {
         page = await HomePage(driver, port)
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
         await page.click('#menu-countries')
         await page.click('#country-3')
 

@@ -19,7 +19,7 @@ describe('Date formating', function() {
 
     it('is always a little plumbing', async ()=> {
         page = await HomePage(driver, port)
-        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
         var sutUtcTime = 14
         var offset = new Date().getTimezoneOffset() / 60
         var localTime = 14 - offset

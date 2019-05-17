@@ -19,7 +19,7 @@ describe('Creating a conditional rendering component', function() {
 
     it('is all up to you', async ()=> {
         page = await HomePage(driver, port)
-        if (process.env.YAF_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
+        if (process.env.SLIDE_SHOW_AND_WAIT) { await page.wait(15*60*1000) }
 
         expect(await page.text('#good-news-1-title')).to.equal('Gaining power')
         expect(await page.text('#good-news-2-title')).to.equal('Starting its adventure')
