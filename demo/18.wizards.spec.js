@@ -62,7 +62,7 @@ describe('Wizards', function() {
         await page.wait(1*1*1000)
         await page.click('#next')
         await page.click('#menu-home')
-        expect(await page.text('#bad-news-4-title')).to.equal('Weather forecasts are so-so for the weekend')
+        expect(await page.text('#bad-news-5-title')).to.equal('Weather forecasts are so-so for the weekend')
         await page.wait(1*3*1000)
     })
 })

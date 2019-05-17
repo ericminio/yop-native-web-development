@@ -20,7 +20,7 @@ var news = [
     { id:2, type:'good', title:'Starting its adventure', date:'2019-04-20T09:00:00Z' },
     { id:3, type:'good', title:'Still just a whisper', date:'2019-04-10T09:00:00Z' },
 
-    { id:10, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
+    { id:4, type:'bad', title:'Still feeling shy...', date:'2019-03-01T07:07:07Z' }
 ]
 
 let server = require('http').createServer((request, response)=> {
@@ -77,7 +77,7 @@ let server = require('http').createServer((request, response)=> {
     else if (parts.pathname == '/api/save') {
         let newNews = require('querystring').parse(parts.query)
         news.push({
-            id: 4,
+            id: news.length + 1,
             type: newNews.type,
             title: newNews.title,
             date: '2019-05-01T14:33:14Z'
