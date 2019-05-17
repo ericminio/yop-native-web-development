@@ -3,7 +3,6 @@ class IfAuthorized extends YopElement {
     constructor() {
         super()
         this.authorizedContent = this.innerHTML
-        this.innerHTML = ''
         events.register(this, 'priviledges')
     }
     connectedCallback() {

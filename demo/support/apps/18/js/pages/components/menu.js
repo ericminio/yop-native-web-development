@@ -9,7 +9,7 @@ menuTemplate.innerHTML = `
     <div class="ribbon">
         <ul>
             <yop-link to="/home">
-                <li class="menu">HOME</li>
+                <li class="menu" id="menu-home">HOME</li>
             </yop-link>
             <yop-link to="/download">
                 <li class="menu with-separator" id="menu-download">DOWNLOAD</li>

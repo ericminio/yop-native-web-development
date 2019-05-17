@@ -23,7 +23,7 @@ publishTypeTemplate.innerHTML = `
                     </td>
                     <td class="step-next">
                         <yop-link to="/publish/title">
-                            <div>Next</div>
+                            <div id="next">Next</div>
                         </yop-link>
                     </td>
                 </tr>
@@ -36,7 +36,18 @@ class PublishType extends YopElement {
 
     connectedCallback() {
         this.appendChild(publishTypeTemplate.content.cloneNode(true))
-
+        store.saveObject('newNews', {})
+        this.querySelector('#good').addEventListener('click', (e)=>{
+            this.chosenType = 'good'
+        })
+        this.querySelector('#bad').addEventListener('click', (e)=>{
+            this.chosenType = 'bad'
+        })
+        this.querySelector('#next').addEventListener('click', (e)=>{
+            let newNews = store.getObject('newNews')
+            newNews.type = this.chosenType
+            store.saveObject('newNews', newNews)
+        })
     }
 }
 customElements.define('publish-type', PublishType)

@@ -11,5 +11,11 @@ class Store {
     delete(id) {
         this.map.removeItem(id)
     }
+    saveObject(id, value) {
+        this.map.setItem(id, JSON.stringify(value))
+    }
+    getObject(id) {
+        return JSON.parse(this.map.getItem(id))
+    }
 }
 var store = new Store()

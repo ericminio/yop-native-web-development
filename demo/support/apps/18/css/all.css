@@ -134,8 +134,9 @@ li {
     border: 1px solid black;
     border-radius: 5px;
     width: 100px;
-    height: 20px;
+    height: 30px;
     text-align: center;
+    line-height: 30px;
 }
 .step-data-section-title {
     font-weight: bold;
@@ -143,8 +144,8 @@ li {
     margin-bottom: 10px;
 }
 .field-label {
-
+    color: gray
 }
 .field-value {
-    color: gray;
+    color: black;
 }

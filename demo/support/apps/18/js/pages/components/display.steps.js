@@ -27,8 +27,8 @@ stepsTemplate.innerHTML = `
             <tr>
                 <td class="step step-gray">Type</td>
                 <td class="step step-gray">Title</td>
-                <td class="step step-gray">Description</td>
                 <td class="step step-gray">Review</td>
+                <td class="step step-gray">Thank you</td>
             </tr>
         </tbody>
     </table>

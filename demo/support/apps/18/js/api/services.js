@@ -55,5 +55,15 @@ class Api {
         })
         return p
     }
+    save(type, title){
+        var p = new Promise((resolve, reject)=>{
+            fetch('/api/save?type=' + type + '&title=' + title).then((response) => {
+                response.json().then((data) => {
+                    resolve(data)
+                })
+            })
+        })
+        return p
+    }
 }
 var api = new Api()

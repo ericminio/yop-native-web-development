@@ -74,6 +74,17 @@ let server = require('http').createServer((request, response)=> {
             canPublish: user == 'boss'
         }, null, 4))
     }
+    else if (parts.pathname == '/api/save') {
+        let newNews = require('querystring').parse(parts.query)
+        news.push({
+            id: 4,
+            type: newNews.type,
+            title: newNews.title,
+            date: '2019-05-01T14:33:14Z'
+        })
+        response.writeHead(200, { 'content-type':'application/json' })
+        response.end(JSON.stringify({ allGood:true }))
+    }
     else {
         response.writeHead(200, { 'content-type':'text/html' })
         response.end(require('fs').readFileSync(path.join(__dirname, 'index.html')).toString())
