@@ -14,7 +14,7 @@ var folder = function(...name) {
     }
     return content
 }
-var dates = fs.readFileSync(path.join(__dirname, 'js', 'yop', 'dates.js')).toString()
+var dates = fs.readFileSync(path.join(__dirname, '../../../..', 'yop/lib', 'dates.js')).toString()
 var dateLabelFromDate = (new Function(dates + ' return dateLabelFromDate;'))()
 
 var news = [
@@ -31,7 +31,7 @@ let server = require('http').createServer((request, response)=> {
     if (request.url == '/all.js') {
         response.writeHead(200, { 'content-type':'application/javascript' })
         let js = ''
-        js += folder(__dirname, 'js', 'yop')
+        js += folder(__dirname, '../../../..', 'yop/lib')
         js += folder(__dirname, 'js', 'api')
         js += folder(__dirname, 'js', 'pages', 'components')
         js += folder(__dirname, 'js', 'pages')

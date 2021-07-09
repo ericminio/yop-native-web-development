@@ -1,6 +1,9 @@
 class Store {
-    constructor() {
+    constructor(window) {
         this.map = window.localStorage
+    }
+    clear() {
+        this.map.clear();
     }
     save(id, value) {
         this.map.setItem(id, value)
@@ -12,10 +15,10 @@ class Store {
         this.map.removeItem(id)
     }
     saveObject(id, value) {
-        this.map.setItem(id, JSON.stringify(value))
+        this.save(id, JSON.stringify(value))
     }
     getObject(id) {
-        return JSON.parse(this.map.getItem(id))
+        return JSON.parse(this.get(id))
     }
 }
-var store = new Store()
+var store = new Store(window);

@@ -14,4 +14,4 @@ class Route extends HTMLElement {
         }
     }
 }
-customElements.define('yop-route', Route)
+customElements.define('yop-route', Route);

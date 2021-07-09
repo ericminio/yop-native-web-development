@@ -19,4 +19,4 @@ class Events {
         this.listeners[id].push(component)
     }
 }
-var events = new Events()
+var events = new Events();
