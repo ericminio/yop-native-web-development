@@ -1,10 +1,5 @@
 const { expect } = require('chai');
-const fs = require('fs');
-const path = require('path');
-const sut = '' 
-    + fs.readFileSync(path.join(__dirname, '../lib/2.events.js')).toString()
-    + fs.readFileSync(path.join(__dirname, '../lib/3.route.js')).toString()
-    ;
+const sut = require('./yop.js');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
@@ -18,9 +13,8 @@ describe('Route', ()=>{
 
                 <button id="go"></button>
 
+                <script>${sut}</script>
                 <script>
-                    ${sut}
-
                     const helloTemplate = document.createElement('template')
                     helloTemplate.innerHTML = '<div>hello world</div>';
 
