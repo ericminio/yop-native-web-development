@@ -1,4 +1,4 @@
-class Link extends YopElement {
+class Link extends HTMLElement {
 
     connectedCallback() {
         this.addEventListener('click', (e)=>{
