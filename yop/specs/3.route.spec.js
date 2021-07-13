@@ -12,6 +12,7 @@ describe('Route', ()=>{
         html = `
             <html>
                 <body>
+                    <yop-route when="/" redirect="/hello-world"></yop-route>
                     <yop-route when="/hello-world" then="yop-hello-world"></yop-route>
                     <yop-route when="/see-you-there" then="yop-see-you-there"></yop-route>
 
@@ -47,7 +48,7 @@ describe('Route', ()=>{
                 </body>
             </html>
         `;
-        window = new JSDOM(html, { url: 'https://localhost/hello-world', runScripts: 'dangerously' }).window;
+        window = new JSDOM(html, { url: 'https://localhost/', runScripts: 'dangerously' }).window;
         document = window.document;
     });
     it('will trigger when location pathname matches', ()=>{
