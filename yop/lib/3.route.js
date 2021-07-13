@@ -1,13 +1,19 @@
 class Route extends HTMLElement {
 
     connectedCallback() {
+        if (this.getAttribute("then") !== null) {
+            let then = this.getAttribute("then");
+            this.then = `<${then}></${then}>`;
+        }
+        else {
+            this.then = this.innerHTML;
+        }
         events.register(this, 'navigation')
         this.update()
     }
     update() {
         if (window.location.pathname == this.getAttribute('when')) {
-            let content = document.createElement(this.getAttribute('then'))
-            this.innerHTML = content.outerHTML
+            this.innerHTML = this.then;
         }
         else {
             this.innerHTML = ''
