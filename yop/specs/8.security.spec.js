@@ -13,8 +13,9 @@ describe('Security', ()=>{
                     <button id="signin">signin</button>
                 </when-not-authorized>
                 <when-authorized>
-                    <div id="content">welcome</div>
+                    <div>welcome</div>
                     <button id="signout">signout</button>
+                    <fetch-data></fetch-data>
                 </when-authorized>
 
                 <script>${yop}</script>
@@ -68,24 +69,85 @@ describe('Security', ()=>{
                         }
                     }
                     customElements.define('when-authorized', WhenAuthorized);
+
+                    class FetchData extends HTMLElement {
+                        constructor() {
+                            super();
+                        }
+                        connectedCallback() {
+                            this.innerHTML = '<div id="data"></div>';
+                            this.load();
+                        }
+                        load() {
+                            let fetch = new Promise((resolve, reject)=>{
+                                var xhr = new window.XMLHttpRequest();
+                                xhr.onreadystatechange = ()=> {  
+                                    if (xhr.readyState === 4) {  
+                                        xhr.status === 200 
+                                            ? resolve(xhr.responseText)
+                                            : reject(xhr.responseText);
+                                    }  
+                                };
+                                xhr.open('GET', '/data', true);
+                                xhr.send();
+                            });
+                            fetch
+                                .then(value => { this.querySelector('#data').innerHTML = value; } )
+                                .catch(error => { this.querySelector('#data').innerHTML = error; } )
+                                ;
+                        }
+                    }
+                    customElements.define('fetch-data', FetchData);
                 </script>
             </body>
         </html>
     `;
     let window;
     let document;
-    beforeEach(()=>{
-        window = new JSDOM(html, { url: 'https://localhost/hello-world', runScripts: 'dangerously' }).window;
-        document = window.document;
+    let server;
+    beforeEach((done)=>{
+        server = require('http').createServer((request, response)=>{
+            if (request.url == '/page') {
+                response.setHeader('Content-Type', 'text/html');
+                response.statusCode = 200;
+                response.write(html)
+            } else {
+                response.setHeader('Content-Type', 'text/plain');
+                response.statusCode = 403;
+                response.write("forbidden")
+            }
+            response.end();
+        });
+        server.listen(5001, ()=>{
+            JSDOM.fromURL('http://localhost:5001/page', { runScripts: 'dangerously', resources: 'usable' }).then(dom => {
+                window = dom.window;
+                document = window.document;
+                done();    
+            });
+        });
     });
+    afterEach(()=>{
+        server.close();
+    })
     it('can start with a fist layer on the client side', ()=>{
         expect(document.querySelector('when-not-authorized').innerHTML.trim()).not.to.equal('');
         expect(document.querySelector('when-authorized').innerHTML.trim()).to.equal('');
     });
-    it('needs more than client-side logic to prevent client code hacking', ()=>{
+    it('needs more than client-side logic to prevent client code hacking', (done)=>{
         window.store.saveObject('user', { authorized:true });
         window.events.notify('user changed');
-        expect(document.querySelector('when-not-authorized').innerHTML.trim()).to.equal('');
-        expect(document.querySelector('when-authorized').innerHTML.trim()).not.to.equal('');
+        setTimeout(()=>{
+            expect(document.querySelector('when-not-authorized').innerHTML.trim()).to.equal('');
+            expect(document.querySelector('when-authorized').innerHTML.trim()).not.to.equal('');
+            done();
+        }, 150);
     });
+    it('has to be enforced by the server eventually', (done)=>{
+        window.store.saveObject('user', { authorized:true });
+        window.events.notify('user changed');
+        setTimeout(()=>{
+            expect(document.querySelector('#data').innerHTML).to.equal('forbidden');
+            done();
+        }, 150);        
+    })
 });
