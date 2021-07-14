@@ -117,7 +117,7 @@ describe('Brag', ()=>{
                                 store.save('interval', 5 * 60 * 1000);
                                 events.notify('interval set');
                             }
-                            update(value, event) {
+                            update() {
                                 this.interval = store.get('interval');
                                 if (this.intervalId !== undefined) {
                                     clearInterval(this.intervalId);
@@ -147,6 +147,11 @@ describe('Brag', ()=>{
                 expect(document.querySelector('#status').innerHTML).to.equal('3');
                 done();
             }, 500);
+        });
+        it('can be used to define a default cycle', ()=>{
+            let element = document.querySelector('system-status');
+            expect(element.interval).to.equal('300000');
+            expect(element.intervalId !== undefined).to.equal(true);
         });
     });
 });
